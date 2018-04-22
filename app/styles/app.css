@@ -1,0 +1,8 @@
+.column{
+    float: left;
+    padding: 0.5em;
+}
+
+input, select, button, textarea {
+    margin: 5px;
+}
