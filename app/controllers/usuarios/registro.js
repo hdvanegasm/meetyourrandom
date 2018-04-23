@@ -29,7 +29,6 @@ export default Controller.extend({
             console.log(rangoEdadPreferido[0]);
             console.log(rangoEdadPreferido[1]);
 
-
             //Obtener fecha actual como string
             let hoy = new Date();
             let dd = hoy.getDate();
