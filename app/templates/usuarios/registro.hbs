@@ -2,6 +2,7 @@
 <h1>Registro de usuario</h1>
 
 <h2>Datos personales</h2>
+
 <div class='column'>
     {{input type='text' value=nombreUsuario placeholder='Nombre De Usuario'}}
     <br> 
@@ -15,7 +16,8 @@
     </div>
 
 <div class='column'>
-    Género{{input type='radio' value=genero}}Masculino{{input type='radio' value=genero}}Femenino
+    {{radio-button  value='masculino' groupValue=genero }} Masculino
+    {{radio-button  value='femenino' groupValue=genero }} Femenino
     <br>
     {{input type='text' value=ocupacion placeholder='Ocupación'}}
     <br> 
@@ -31,18 +33,29 @@
         <option disabled selected> Ciudad </option>
     </select>
     <br>
-    <button>Subir foto</button> <button>Seleccionar archivo</button>
+    Foto de Perfil<input  multiple='true'  onchange={{action 'seleccionarFoto'}}  accept='image/png,image/jpeg'  
+    type='file'/>
+</div>
+
+<div>
+    <img src = {{fotoDePerfil}}/>
 </div>
 
 <div class='column'>
-    <img src='icon.jpg'>
-</div>
+    <h2>Criterio de emparejamiento</h2>   
 
-<div class='column'>
-    <h2>Criterio de emparejamiento</h2>     
-    Género Preferido{{input type='radio' value=genero}}Masculino{{input type='radio' value=genero}}Femenino
-    <select>
-        <option disabled selected> No considerar ubicación </option>
+    Género Preferido
+    {{radio-button  value='masculino' groupValue=generoPreferido }} Masculino
+    {{radio-button  value='femenino' groupValue=generoPreferido }} Femenino
+    <select onchange={{action 'seleccionarUbicacion' value='target.value'}}>
+        <option value='ciudad'> Ciudad </option>
+        <option value='provincia'> Provincia </option>
+        <option value='pais'> País</option>
+        <option value='no ubicacion'> No considerar ubicación </option>
     </select>
-    {{input type='range' value=rangoEdadPreferido min=18 max=100}}
+    
+{{!-- {{range-slider    mood='success' }} --}}
+    {{!-- {{input type='range' value=rangoEdadPreferido min=18 max=100}} --}}
+    <br>
+    <button {{action 'registrar'}}>Confirmar registro</button>
 </div>
