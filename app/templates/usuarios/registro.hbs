@@ -23,18 +23,20 @@
     <br> 
     {{textarea type='text' value=biografia placeholder='Biografía'}}
     <br>
-    <select>
-        <option disabled selected> País </option>
+    <select onchange={{action 'seleccionarPais' value='target.value'}}>
+        <option disabled selected> --País-- </option>
+        <option value='Colombia'> Colombia </option>
     </select>
-    <select>
-        <option disabled selected> Provincia </option>
+    <select onchange={{action 'seleccionarProvincia' value='target.value'}}>
+        <option disabled selected> --Provincia-- </option>
+        <option value='Antioquia'> Antioquia </option>
     </select>
-    <select>
-        <option disabled selected> Ciudad </option>
+    <select onchange={{action 'seleccionarCiudad' value='target.value'}}>
+        <option disabled selected> --Ciudad -- </option>
+        <option value='Medellin'> Medellín </option>
     </select>
     <br>
-    Foto de Perfil<input  multiple='true'  onchange={{action 'seleccionarFoto'}}  accept='image/png,image/jpeg'  
-    type='file'/>
+    Foto de Perfil<input  multiple='true'  onchange={{action 'seleccionarFoto'}}  accept='image/png,image/jpeg' type='file'/>
 </div>
 
 <div>
@@ -54,7 +56,7 @@
         <option value='no ubicacion'> No considerar ubicación </option>
     </select>  
     <br>
-    Rango de edad preferido en años
+    Rango de edad preferido
     <br>
     <br>
     <br>
