@@ -6,5 +6,6 @@ export default Route.extend({
         this.controller.set('generoPreferido', 'masculino');
         this.controller.set('fotoDePerfil', '/default.png');
         this.controller.set('ubicacionPreferida', 'ciudad');
+        this.controller.set('rangoEdadPreferido', [18,30]);
       },
 });

@@ -52,10 +52,13 @@
         <option value='provincia'> Provincia </option>
         <option value='pais'> País</option>
         <option value='no ubicacion'> No considerar ubicación </option>
-    </select>
-    
-{{!-- {{range-slider    mood='success' }} --}}
-    {{!-- {{input type='range' value=rangoEdadPreferido min=18 max=100}} --}}
+    </select>  
+    <br>
+    Rango de edad preferido en años
+    <br>
+    <br>
+    <br>
+    {{range-slider  class='slider' mood='info' min=18 max=100 value=rangoEdadPreferido tooltip='always'}}
     <br>
     <button {{action 'registrar'}}>Confirmar registro</button>
 </div>

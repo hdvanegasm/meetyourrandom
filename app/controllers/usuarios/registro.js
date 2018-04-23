@@ -4,10 +4,11 @@ export default Controller.extend({
     actions: {
         registrar() {
             let { nombreUsuario, contraseña, confirmacionContraseña, nombre, fechaNacimiento,
-                genero, ocupacion, biografia, fotoDePerfil, generoPreferido, ubicacionPreferida} =
+                genero, ocupacion, biografia, fotoDePerfil, generoPreferido, ubicacionPreferida,
+                rangoEdadPreferido} =
                 this.getProperties('nombreUsuario', 'contraseña', 'confirmacionContraseña', 'nombre',
                     'fechaNacimiento', 'genero', 'ocupacion', 'biografia', 'fotoDePerfil', 
-                    'generoPreferido', 'ubicacionPreferida');
+                    'generoPreferido', 'ubicacionPreferida', 'rangoEdadPreferido');
 
             console.log(nombreUsuario);
             console.log(contraseña);
@@ -20,6 +21,8 @@ export default Controller.extend({
             console.log(fotoDePerfil);
             console.log(generoPreferido);
             console.log(ubicacionPreferida);
+            console.log(rangoEdadPreferido[0]);
+            console.log(rangoEdadPreferido[1]);
         },
         seleccionarFoto: function (event) {
             const reader = new FileReader();
