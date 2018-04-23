@@ -11,24 +11,6 @@ export default Controller.extend({
                     'fotoDePerfil', 'ciudad', 'generoPreferido', 'ubicacionPreferida',
                     'rangoEdadPreferido');
 
-            console.log('------------------------------------------------');
-            console.log(nombreUsuario);
-            console.log(contraseña);
-            console.log(confirmacionContraseña);
-            console.log(nombre);
-            console.log(fechaNacimiento);
-            console.log(genero);
-            console.log(ocupacion);
-            console.log(biografia);
-            console.log(pais);
-            console.log(provincia);
-            console.log(ciudad);
-            console.log(fotoDePerfil);
-            console.log(generoPreferido);
-            console.log(ubicacionPreferida);
-            console.log(rangoEdadPreferido[0]);
-            console.log(rangoEdadPreferido[1]);
-
             //Obtener fecha actual como string
             let hoy = new Date();
             let dd = hoy.getDate();
@@ -42,6 +24,9 @@ export default Controller.extend({
                 mm = '0' + mm
             }
             hoy = yyyy + '-' + mm + '-' + dd;
+
+            // Revisar si nombreUsuario existe en la base de datos          
+            var usuario = this.store.findAll('usuario');
 
             // Al menos un campo requerido está vacío
             if (nombreUsuario == null || contraseña == null || confirmacionContraseña == null ||
@@ -57,6 +42,22 @@ export default Controller.extend({
                 // Fecha de Nacimiento mayor a la actual
             } else if (fechaNacimiento >= hoy) {
                 window.alert('Por favor ingrese una fecha previa a la del dia de hoy');
+            } else {
+
+                var nuevoUsuario = this.store.createRecord('usuario', {
+                    nombreUsuario: nombreUsuario,
+                    contraseña: contraseña,
+                    fechaNacimiento: new Date(fechaNacimiento),
+                    nombre: nombre,
+                    genero: genero,
+                    ocupacion: ocupacion,
+                    biografia: biografia,
+                    fotoDePerfil: fotoDePerfil,
+                    estado: false,
+                    generoPreferido: generoPreferido,
+                    rangoEdadPreferido: [rangoEdadPreferido[0], rangoEdadPreferido[1]]
+                });
+                nuevoUsuario.save();
             }
         },
         seleccionarFoto: function (event) {
