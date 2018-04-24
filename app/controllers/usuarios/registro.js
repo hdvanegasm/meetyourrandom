@@ -4,11 +4,11 @@ export default Controller.extend({
     actions: {
         registrar() {
             let { nombreUsuario, contraseña, confirmacionContraseña, nombre, fechaNacimiento,
-                genero, ocupacion, biografia, pais, provincia, ciudad, fotoDePerfil,
+                genero, ocupacion, biografia, ubicacion, fotoDePerfil,
                 generoPreferido, ubicacionPreferida, rangoEdadPreferido } =
                 this.getProperties('nombreUsuario', 'contraseña', 'confirmacionContraseña', 'nombre',
-                    'fechaNacimiento', 'genero', 'ocupacion', 'biografia', 'pais', 'provincia',
-                    'fotoDePerfil', 'ciudad', 'generoPreferido', 'ubicacionPreferida',
+                    'fechaNacimiento', 'genero', 'ocupacion', 'biografia', 'ubicacion',
+                    'fotoDePerfil', 'generoPreferido', 'ubicacionPreferida',
                     'rangoEdadPreferido');
 
             //Obtener fecha actual como string
@@ -31,9 +31,10 @@ export default Controller.extend({
             // Al menos un campo requerido está vacío
             if (nombreUsuario == null || contraseña == null || confirmacionContraseña == null ||
                 nombre == null, fechaNacimiento == null || ocupacion == null || biografia == null ||
-                pais == null || provincia == null || ciudad == null || fotoDePerfil == '/default.png' ||
-                nombreUsuario == '' || contraseña == '' || confirmacionContraseña == '' || nombre == '' ||
-                fechaNacimiento == '' || ocupacion == '' || biografia == '' || fotoDePerfil == '') {
+                ubicacion == null || fotoDePerfil == '/default.png' || nombreUsuario == '' || 
+                contraseña == '' || confirmacionContraseña == '' || nombre == '' ||
+                fechaNacimiento == '' || ocupacion == '' || biografia == '' || ubicacion == '' ||
+                fotoDePerfil == '') {
 
                 window.alert('Por favor llene por completo todos los campos');
                 //Contraseñas no coincidem
@@ -52,9 +53,11 @@ export default Controller.extend({
                     genero: genero,
                     ocupacion: ocupacion,
                     biografia: biografia,
+                    ubicacion: ubicacion,
                     fotoDePerfil: fotoDePerfil,
                     estado: false,
                     generoPreferido: generoPreferido,
+                    ubicacionPreferida: ubicacionPreferida,
                     rangoEdadPreferido: [rangoEdadPreferido[0], rangoEdadPreferido[1]]
                 });
                 nuevoUsuario.save();

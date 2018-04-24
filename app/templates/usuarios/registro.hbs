@@ -23,18 +23,16 @@
     <br> 
     {{textarea type='text' value=biografia placeholder='Biografía'}}
     <br>
-    <select onchange={{action 'seleccionarPais' value='target.value'}}>
-        <option disabled selected> --País-- </option>
-        <option value='Colombia'> Colombia </option>
-    </select>
-    <select onchange={{action 'seleccionarProvincia' value='target.value'}}>
-        <option disabled selected> --Provincia-- </option>
-        <option value='Antioquia'> Antioquia </option>
-    </select>
-    <select onchange={{action 'seleccionarCiudad' value='target.value'}}>
-        <option disabled selected> --Ciudad -- </option>
-        <option value='Medellin'> Medellín </option>
-    </select>
+    {{place-autocomplete-field
+    value= ubicacion
+    disabled=false
+    inputClass= 'place-autocomplete--input'
+    types='(cities)' 
+    restrictions= restrictionsObjectFromController
+    setValueWithProperty= 'formatted_address' 
+    preventSubmit= true 
+    placeholder='Ubicacion'
+}}
     <br>
     Foto de Perfil<input  multiple='true'  onchange={{action 'seleccionarFoto'}}  accept='image/png,image/jpeg' type='file'/>
 </div>

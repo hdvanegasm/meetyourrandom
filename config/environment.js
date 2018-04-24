@@ -22,13 +22,16 @@ module.exports = function(environment) {
       EXTEND_PROTOTYPES: {
         // Prevent Ember Data from overriding Date.parse.
         Date: false
-      }
+      },
     },
 
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
-    }
+    },
+    'place-autocomplete' : {
+      key: 'AIzaSyByCIqSojES2irgYBSGy3Qe3GTevV-rObI'
+   }
   };
 
   if (environment === 'development') {

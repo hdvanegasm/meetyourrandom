@@ -34,6 +34,7 @@
     "ember-data": "~2.18.0",
     "ember-export-application-global": "^2.0.0",
     "ember-load-initializers": "^1.0.0",
+    "ember-place-autocomplete": "^0.2.0",
     "ember-radio-button": "^1.2.3",
     "ember-resolver": "^4.0.0",
     "ember-source": "~2.18.0",
