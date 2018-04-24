@@ -2,10 +2,21 @@
 
 module.exports = function(environment) {
   let ENV = {
+    torii: {
+        sessionServiceName: 'session'
+    },
     modulePrefix: 'meetyourrandom',
     environment,
     rootURL: '/',
     locationType: 'auto',
+    firebase:{
+      apiKey: "AIzaSyCDAvC1sGNj2JfyAthgjs_PTzaTkLp3xZI",
+      authDomain: "fir-example-89669.firebaseapp.com",
+      databaseURL: "https://fir-example-89669.firebaseio.com",
+      projectId: "fir-example-89669",
+      storageBucket: "fir-example-89669.appspot.com",
+      messagingSenderId: "814356571729"  
+    },
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -14,13 +25,16 @@ module.exports = function(environment) {
       EXTEND_PROTOTYPES: {
         // Prevent Ember Data from overriding Date.parse.
         Date: false
-      }
+      },
     },
 
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
-    }
+    },
+    'place-autocomplete' : {
+      key: 'AIzaSyByCIqSojES2irgYBSGy3Qe3GTevV-rObI'
+   }
   };
 
   if (environment === 'development') {
