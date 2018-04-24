@@ -42,9 +42,19 @@
     "emberfire": "^2.0.10",
     "eslint-plugin-ember": "^5.0.0",
     "loader.js": "^4.2.3",
+<<<<<<< HEAD
+=======
+    "torii": "^0.10.1",
+>>>>>>> 36d9ead9cac644135ea50feb9b76450a6b1e6997
     "ui-ember-slider": "^0.5.0"
   },
   "engines": {
     "node": "^4.5 || 6.* || >= 7.*"
+<<<<<<< HEAD
+=======
+  },
+  "dependencies": {
+    "bower": "^1.8.4"
+>>>>>>> 36d9ead9cac644135ea50feb9b76450a6b1e6997
   }
 }

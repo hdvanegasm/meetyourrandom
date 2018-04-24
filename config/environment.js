@@ -2,6 +2,9 @@
 
 module.exports = function(environment) {
   let ENV = {
+    torii: {
+        sessionServiceName: 'session'
+    },
     modulePrefix: 'meetyourrandom',
     environment,
     rootURL: '/',
