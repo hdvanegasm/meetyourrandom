@@ -1,11 +1,13 @@
 import Controller from '@ember/controller';
 import * as firebase from 'firebase';
-import ENV from 'meetyourrandom/config/environment'
+import ENV from 'meetyourrandom/config/environment';
+
 firebase.initializeApp(ENV.firebase);
 
 export default Controller.extend({
     actions: {
         registrar() {
+            let self = this;
             let { nombreUsuario, contraseña, confirmacionContraseña, nombre, fechaNacimiento,
                 genero, ocupacion, biografia, ubicacion, fotoDePerfil,
                 generoPreferido, ubicacionPreferida, rangoEdadPreferido } =
@@ -28,7 +30,7 @@ export default Controller.extend({
             }
             hoy = yyyy + '-' + mm + '-' + dd;
 
-            //this.store.findRecord('usuario', nombreUsuario);
+
             // Al menos un campo requerido está vacío
             if (nombreUsuario == null || contraseña == null || confirmacionContraseña == null ||
                 nombre == null, fechaNacimiento == null || ocupacion == null || biografia == null ||
@@ -39,9 +41,7 @@ export default Controller.extend({
                 fotoDePerfil == '') {
 
                 window.alert('Por favor llene por completo todos los campos');
-            // } else if (usuario.get('nombreUsuario') != null) {
-            //     //Nombre de usuario ya existe
-            //     window.alert('El nombre de usuario ya existe');
+
             } else if (contraseña != confirmacionContraseña) {
                 //Contraseñas no coincidem
                 window.alert('Las contraseñas no coinciden');
@@ -50,8 +50,6 @@ export default Controller.extend({
                 window.alert('Por favor ingrese una fecha previa a la del dia de hoy');
             } else {
                 var nuevoUsuario = this.store.createRecord('usuario', {
-                    id: nombreUsuario,
-
                     nombreUsuario: nombreUsuario,
                     contraseña: contraseña,
                     fechaNacimiento: new Date(fechaNacimiento),
@@ -66,12 +64,12 @@ export default Controller.extend({
                     ubicacionPreferida: ubicacionPreferida,
                     rangoEdadPreferido: [rangoEdadPreferido[0], rangoEdadPreferido[1]]
                 });
-                firebase.auth().createUserWithEmailAndPassword(nombreUsuario + '@unal.edu.co', contraseña).catch(() => {
-                  window.alert('Ocurrio un error, no se pudo realizar el registro');
-                  this.transitionTo('usuarios.registro');
+                firebase.auth().createUserWithEmailAndPassword(nombreUsuario, contraseña).then(() => {
+                  nuevoUsuario.save();
+                  this.transitionToRoute('interfaz-principal');
+                }).catch((error) => {
+                  window.alert(error.message);
                 });
-                nuevoUsuario.save();
-                this.transitionTo('interfaz-principal');
             }
         },
         seleccionarFoto: function (event) {
