@@ -1,0 +1,66 @@
+{{#link-to 'interfaz-principal'}}Volver{{/link-to}}
+
+{{outlet}}
+<h1>Registro de usuario</h1>
+
+<h2>Datos personales</h2>
+
+<div class='column'>
+    {{input type='text' value=nombreUsuario placeholder='Nombre De Usuario'}}
+    <br> 
+    {{input type='password' value=contraseña placeholder='Contraseña'}}
+    <br> 
+    {{input type='password' value=confirmacionContraseña placeholder='Confirmación de la contraseña'}}
+    <br>
+    {{input type='text' value=nombre placeholder='Nombre'}}
+    <br>                                                                                                                    
+    Fecha de Nacimiento{{input type='date' value=fechaNacimiento}}
+    </div>
+
+<div class='column'>
+    Masculino {{radio-button  value='masculino' groupValue=genero }}  
+    Femenino {{radio-button  value='femenino' groupValue=genero }}                                                                   
+    <br>
+    {{input type='text' value=ocupacion placeholder='Ocupación'}}
+    <br> 
+    {{textarea type='text' value=biografia placeholder='Biografía'}}
+    <br>
+    {{place-autocomplete-field
+    value= ubicacion
+    disabled=false
+    inputClass= 'place-autocomplete--input'
+    types='(cities)' 
+    restrictions= restrictionsObjectFromController
+    setValueWithProperty= 'formatted_address' 
+    preventSubmit= true 
+    placeholder='Ubicacion'
+}}
+    <br>
+    Foto de Perfil<input  multiple='true'  onchange={{action 'seleccionarFoto'}}  accept='image/png,image/jpeg' type='file'/>
+</div>
+
+<div>
+    <img src = {{fotoDePerfil}}/>
+</div>
+
+<div class='column'>
+    <h2>Criterio de emparejamiento</h2>   
+
+    Género Preferido
+    {{radio-button  value='masculino' groupValue=generoPreferido }} Masculino
+    {{radio-button  value='femenino' groupValue=generoPreferido }} Femenino
+    <select onchange={{action 'seleccionarUbicacion' value='target.value'}}>
+        <option value='ciudad'> Ciudad </option>
+        <option value='provincia'> Provincia </option>
+        <option value='pais'> País</option>
+        <option value='no ubicacion'> No considerar ubicación </option>
+    </select>  
+    <br>
+    Rango de edad preferido
+    <br>
+    <br>
+    <br>
+    {{range-slider  class='slider' mood='info' min=18 max=100 value=rangoEdadPreferido tooltip='always'}}
+    <br>
+    <button {{action 'registrar'}}>Confirmar registro</button>
+</div>
