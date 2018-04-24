@@ -4,33 +4,33 @@
 <h2>Datos personales</h2>
 
 <div class='column'>
-    {{input type='text' value=nombreUsuario placeholder='Nombre De Usuario'}}
-    <br> 
+    {{input type='text' value=correo placeholder='Correo'}}
+    <br>
     {{input type='password' value=contraseña placeholder='Contraseña'}}
-    <br> 
+    <br>
     {{input type='password' value=confirmacionContraseña placeholder='Confirmación de la contraseña'}}
     <br>
     {{input type='text' value=nombre placeholder='Nombre'}}
-    <br>                                                                                                                    
+    <br>
     Fecha de Nacimiento{{input type='date' value=fechaNacimiento}}
     </div>
 
 <div class='column'>
-    Masculino {{radio-button  value='masculino' groupValue=genero }}  
-    Femenino {{radio-button  value='femenino' groupValue=genero }}                                                                   
+    Masculino {{radio-button  value='masculino' groupValue=genero }}
+    Femenino {{radio-button  value='femenino' groupValue=genero }}
     <br>
     {{input type='text' value=ocupacion placeholder='Ocupación'}}
-    <br> 
+    <br>
     {{textarea type='text' value=biografia placeholder='Biografía'}}
     <br>
     {{place-autocomplete-field
     value= ubicacion
     disabled=false
     inputClass= 'place-autocomplete--input'
-    types='(cities)' 
+    types='(cities)'
     restrictions= restrictionsObjectFromController
-    setValueWithProperty= 'formatted_address' 
-    preventSubmit= true 
+    setValueWithProperty= 'formatted_address'
+    preventSubmit= true
     placeholder='Ubicacion'
 }}
     <br>
@@ -42,7 +42,7 @@
 </div>
 
 <div class='column'>
-    <h2>Criterio de emparejamiento</h2>   
+    <h2>Criterio de emparejamiento</h2>
 
     Género Preferido
     {{radio-button  value='masculino' groupValue=generoPreferido }} Masculino
@@ -52,7 +52,7 @@
         <option value='provincia'> Provincia </option>
         <option value='pais'> País</option>
         <option value='no ubicacion'> No considerar ubicación </option>
-    </select>  
+    </select>
     <br>
     Rango de edad preferido
     <br>

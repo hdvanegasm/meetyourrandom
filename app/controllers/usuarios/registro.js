@@ -7,11 +7,10 @@ firebase.initializeApp(ENV.firebase);
 export default Controller.extend({
     actions: {
         registrar() {
-            let self = this;
-            let { nombreUsuario, contraseña, confirmacionContraseña, nombre, fechaNacimiento,
+            let { correo, contraseña, confirmacionContraseña, nombre, fechaNacimiento,
                 genero, ocupacion, biografia, ubicacion, fotoDePerfil,
                 generoPreferido, ubicacionPreferida, rangoEdadPreferido } =
-                this.getProperties('nombreUsuario', 'contraseña', 'confirmacionContraseña', 'nombre',
+                this.getProperties('correo', 'contraseña', 'confirmacionContraseña', 'nombre',
                     'fechaNacimiento', 'genero', 'ocupacion', 'biografia', 'ubicacion',
                     'fotoDePerfil', 'generoPreferido', 'ubicacionPreferida',
                     'rangoEdadPreferido');
@@ -32,9 +31,9 @@ export default Controller.extend({
 
 
             // Al menos un campo requerido está vacío
-            if (nombreUsuario == null || contraseña == null || confirmacionContraseña == null ||
+            if (correo == null || contraseña == null || confirmacionContraseña == null ||
                 nombre == null, fechaNacimiento == null || ocupacion == null || biografia == null ||
-                ubicacion == null || fotoDePerfil == '/default.png' || nombreUsuario == '' ||
+                ubicacion == null || fotoDePerfil == '/default.png' || correo == '' ||
 
                 contraseña == '' || confirmacionContraseña == '' || nombre == '' ||
                 fechaNacimiento == '' || ocupacion == '' || biografia == '' || ubicacion == '' ||
@@ -50,7 +49,7 @@ export default Controller.extend({
                 window.alert('Por favor ingrese una fecha previa a la del dia de hoy');
             } else {
                 var nuevoUsuario = this.store.createRecord('usuario', {
-                    nombreUsuario: nombreUsuario,
+                    correo: correo,
                     contraseña: contraseña,
                     fechaNacimiento: new Date(fechaNacimiento),
                     nombre: nombre,
@@ -64,7 +63,7 @@ export default Controller.extend({
                     ubicacionPreferida: ubicacionPreferida,
                     rangoEdadPreferido: [rangoEdadPreferido[0], rangoEdadPreferido[1]]
                 });
-                firebase.auth().createUserWithEmailAndPassword(nombreUsuario, contraseña).then(() => {
+                firebase.auth().createUserWithEmailAndPassword(correo, contraseña).then(() => {
                   nuevoUsuario.save();
                   this.transitionToRoute('interfaz-principal');
                 }).catch((error) => {
