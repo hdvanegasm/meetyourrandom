@@ -3,5 +3,4 @@ export default Route.extend({
   beforeModel: function() {
     this.transitionTo('interfaz-principal');
   },
-  
 });
