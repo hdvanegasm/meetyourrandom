@@ -1,4 +1,7 @@
 import Controller from '@ember/controller';
+import * as firebase from 'firebase';
+import ENV from 'meetyourrandom/config/environment'
+firebase.initializeApp(ENV.firebase);
 
 export default Controller.extend({
     actions: {
@@ -25,7 +28,7 @@ export default Controller.extend({
             }
             hoy = yyyy + '-' + mm + '-' + dd;
 
-            this.store.findRecord('usuario', nombreUsuario);
+            //this.store.findRecord('usuario', nombreUsuario);
             // Al menos un campo requerido está vacío
             if (nombreUsuario == null || contraseña == null || confirmacionContraseña == null ||
                 nombre == null, fechaNacimiento == null || ocupacion == null || biografia == null ||
@@ -37,7 +40,7 @@ export default Controller.extend({
 
                 window.alert('Por favor llene por completo todos los campos');
             // } else if (usuario.get('nombreUsuario') != null) {
-            //     //Nombre de usuario ya existe   
+            //     //Nombre de usuario ya existe
             //     window.alert('El nombre de usuario ya existe');
             } else if (contraseña != confirmacionContraseña) {
                 //Contraseñas no coincidem
@@ -63,8 +66,12 @@ export default Controller.extend({
                     ubicacionPreferida: ubicacionPreferida,
                     rangoEdadPreferido: [rangoEdadPreferido[0], rangoEdadPreferido[1]]
                 });
+                firebase.auth().createUserWithEmailAndPassword(nombreUsuario + '@unal.edu.co', contraseña).catch(() => {
+                  window.alert('Ocurrio un error, no se pudo realizar el registro');
+                  this.transitionTo('usuarios.registro');
+                });
                 nuevoUsuario.save();
-                                this.transitionTo('interfaz-principal');
+                this.transitionTo('interfaz-principal');
             }
         },
         seleccionarFoto: function (event) {
