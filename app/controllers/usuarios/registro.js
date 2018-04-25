@@ -4,6 +4,7 @@ import * as firebase from 'firebase';
 export default Controller.extend({
     actions: {
         registrar() {
+            let self = this;
             let { email, contraseña, confirmacionContraseña, nombre, fechaNacimiento,
                 genero, ocupacion, biografia, ubicacion, fotoDePerfil,
                 generoPreferido, ubicacionPreferida, rangoEdadPreferido } =
@@ -60,8 +61,10 @@ export default Controller.extend({
                     rangoEdadPreferido: [rangoEdadPreferido[0], rangoEdadPreferido[1]]
                 });
                 firebase.auth().createUserWithEmailAndPassword(email, contraseña).then(() => {
-                  nuevoUsuario.save();
-                  this.transitionToRoute('interfaz-principal');
+                  nuevoUsuario.save().then(function() {
+                    window.alert('Registro exitoso');
+                    self.transitionToRoute('interfaz-principal');
+                  })
                 }).catch((error) => {
                   window.alert(error.message);
                 });
