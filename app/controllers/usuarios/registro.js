@@ -1,8 +1,5 @@
 import Controller from '@ember/controller';
 import * as firebase from 'firebase';
-import ENV from 'meetyourrandom/config/environment';
-
-firebase.initializeApp(ENV.firebase);
 
 export default Controller.extend({
     actions: {
