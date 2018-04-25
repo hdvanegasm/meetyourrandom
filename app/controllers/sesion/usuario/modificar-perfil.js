@@ -27,7 +27,7 @@ export default Controller.extend({
                   window.alert('Las contraseñas no coinciden');
               } else {
 
-                  this.get('store').findRecord('usuario', this.get('idUser')).then(function(usuario) {
+                  this.get('store').findRecord('usuario', this.get('idUser').id).then(function(usuario) {
                     usuario.set('contraseña', contraseña);
                     usuario.set('nombre', nombre);
                     usuario.set('genero', genero);

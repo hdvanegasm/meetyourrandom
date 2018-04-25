@@ -26,12 +26,14 @@ export default Controller.extend({
                         email: self.get('email'),
                       }
                     }).then(function(users) {
-                      return users.get('firstObject');
+                      let id = '';
+                      users.forEach((userElement) => {
+                        if(userElement.get('email') == self.get('email')) {
+                           id = userElement.get('id');
+                        }
+                      });
+                      self.transitionToRoute('sesion.usuario', id);
                     })
-                    var id = user.then(function(data) {
-                      return data.get('id');
-                    })
-                    self.transitionToRoute('sesion.usuario', id);
                 }).catch(function(error){
                   //console.log(error)
                     if(error.code === "auth/user-not-found" ||

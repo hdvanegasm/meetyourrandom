@@ -5,7 +5,7 @@ export default Route.extend({
   setupController(controller, model) {
       this.controller.set('idUser', this.get('idUser'));
       let self = this;
-      this.get('store').findRecord('usuario', this.get('idUser')).then(function(usuario) {
+      this.get('store').findRecord('usuario', this.get('idUser').id).then(function(usuario) {
         self.controller.set('contraseña', usuario.get('contraseña'));
         self.controller.set('confirmacionContraseña', usuario.get('contraseña'));
         self.controller.set('nombre', usuario.get('nombre'));
