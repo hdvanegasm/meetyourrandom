@@ -12,7 +12,9 @@ Router.map(function() {
   });
   this.route('interfaz-principal');
   this.route('sesion', function() {
-        this.route('usuario');
+        this.route('usuario', {path: ':id'}, function() {
+          this.route('modificar-perfil');
+        });
   });
 });
 
