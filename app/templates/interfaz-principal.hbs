@@ -1,11 +1,50 @@
-<nav>
-{{#link-to 'usuarios.registro'}}Realizar Registro{{/link-to}}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Meet Your Random</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+
+            <li class="nav-item">
+                {{#link-to 'usuarios.registro' class="nav-link"}}Realizar Registro{{/link-to}}
+            </li>
+
+        </ul>
+    </div>
 </nav>
 
-<h1>Login</h1>
-{{input value=email type="text" placeholder="you@email.com"}}
-{{input value=password type="password" placeholder="Password"}}
-<button {{action 'iniciarSesion' 'password'}}>Iniciar Sesion</button>
+<div class="row justify-content-md-center pt-5">
+    <div class="col col-lg-5">
+        <div class="jumbotron">
 
+            <div class="row justify-content-md-center">
+                <h1 class="display-6">Meet Your Random</h1>
+            </div>
+
+            <form>
+                <div class="form-group row justify-content-md-center">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Nombre de Usuario</label>
+                    <div class="col-sm-6">
+                        {{input value=email type="text" class="form-control" placeholder="you@email.com"}}
+                    </div>
+                </div>
+                <div class="form-group row justify-content-md-center">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Contraseña</label>
+                    <div class="col-sm-6">
+                        {{input value=password class="form-control" type="password" placeholder="Contraseña"}}
+                    </div>
+                </div>
+
+                <div class="form-group row justify-content-md-center">
+                    <button class="btn btn-primary" {{action 'iniciarSesion' 'password'}}>Iniciar Sesión</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+</div>
 
 {{outlet}}
