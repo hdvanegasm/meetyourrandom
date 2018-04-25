@@ -1,6 +1,11 @@
+<nav>
+{{#link-to 'usuarios.registro'}}Realizar Registro{{/link-to}}
+</nav>
+
 <h1>Login</h1>
 {{input value=email type="text" placeholder="you@email.com"}}
 {{input value=password type="password" placeholder="Password"}}
-<button {{action 'iniciarSesion' 'password'}}>Login</button>
+<button {{action 'iniciarSesion' 'password'}}>Iniciar Sesion</button>
+
 
 {{outlet}}

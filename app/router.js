@@ -11,9 +11,8 @@ Router.map(function() {
     this.route('registro');
   });
   this.route('interfaz-principal');
-
   this.route('sesion', function() {
-    this.route('usuario');
+        this.route('usuario');
   });
 });
 

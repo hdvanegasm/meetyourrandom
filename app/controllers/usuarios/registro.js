@@ -40,7 +40,6 @@ export default Controller.extend({
                 fotoDePerfil == '') {
 
                 window.alert('Por favor llene por completo todos los campos');
-
             } else if (contraseña != confirmacionContraseña) {
                 //Contraseñas no coincidem
                 window.alert('Las contraseñas no coinciden');
