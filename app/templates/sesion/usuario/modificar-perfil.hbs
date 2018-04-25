@@ -1,63 +1,127 @@
-<h1>Modificar perfil</h1>
 
-<h2>Datos personales</h2>
+<div class="row justify-content-md-center pt-5">
+    <h1 class="display-4">Modificar perfil</h1>
+</div>
 
-<div class='column'>
-    {{input type='password' value=contraseña placeholder='Contraseña'}}
-    <br>
-    {{input type='password' value=confirmacionContraseña placeholder='Confirmación de la contraseña'}}
-    <br>
-    {{input type='text' value=nombre placeholder='Nombre'}}
+<div class="row justify-content-md-center pt-3">
+    <div class="col col-lg-8">
+        <div class="jumbotron">
 
+            <div class="row justify-content-md-center">
+                <h1 class="display-6">Datos personales</h1>
+            </div>
+
+            <form>
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="form-group row justify-content-md-center">
+                            <div class="col-sm-6">
+                                {{input type='password' value=contraseña class="form-control" placeholder='Contraseña'}}
+                            </div>
+
+                            <div class="col-sm-6">
+                                Masculino {{radio-button value='masculino' class="form-control" groupValue=genero }} Femenino {{radio-button value='femenino'
+                                class="form-control" groupValue=genero }}
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row justify-content-md-center">
+                            <div class="col-sm-6">
+                                {{input type='password' value=confirmacionContraseña class="form-control" placeholder='Confirmación de la contraseña'}}
+                            </div>
+
+                            <div class="col-sm-6">
+                                {{input type='text' value=ocupacion class="form-control" placeholder='Ocupación'}}
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row justify-content-md-center">
+                            <div class="col-sm-6">
+                                {{input type='text' value=nombre class="form-control" placeholder='Nombre'}}
+                            </div>
+
+                            <div class="col-sm-6">
+                                {{textarea type='text' value=biografia placeholder='Biografía'}}
+                            </div>
+                        </div>
+
+                        <div class="form-group row justify-content-md-center">
+
+                            <div class="col-sm-6">
+                                {{place-autocomplete-field value= ubicacion disabled=false inputClass= 'place-autocomplete--input' types='(cities)' restrictions=
+                                restrictionsObjectFromController setValueWithProperty= 'formatted_address' preventSubmit=
+                                true placeholder='Ubicacion' }}
+                            </div>
+
+                            <div class="col-sm-6">
+
+                                <div class="custom-file">
+                                    <input multiple='true' class="custom-file-input" id="customFileLang" lang="es" onchange={{action 'seleccionarFoto'}} accept='image/png,image/jpeg'
+                                        type='file'>
+                                    <label class="custom-file-label" for="customFileLang">Foto de Perfil</label>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="row justify-content-md-center">
+                            <img class="profilePhoto" src={{fotoDePerfil}}/>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+
+        </div>
     </div>
 
-<div class='column'>
-    Masculino {{radio-button  value='masculino' groupValue=genero }}
-    Femenino {{radio-button  value='femenino' groupValue=genero }}
-    <br>
-    {{input type='text' value=ocupacion placeholder='Ocupación'}}
-    <br>
-    {{textarea type='text' value=biografia placeholder='Biografía'}}
-    <br>
-    {{place-autocomplete-field
-    value= ubicacion
-    disabled=false
-    inputClass= 'place-autocomplete--input'
-    types='(cities)'
-    restrictions= restrictionsObjectFromController
-    setValueWithProperty= 'formatted_address'
-    preventSubmit= true
-    placeholder='Ubicacion'
-}}
-    <br>
-    Foto de Perfil<input  multiple='true'  onchange={{action 'seleccionarFoto'}}  accept='image/png,image/jpeg' type='file'/>
 </div>
 
-<div>
-    <img src = {{fotoDePerfil}}/>
+<div class="row justify-content-md-center pt-3">
+    <div class="col col-lg-8">
+        <div class="jumbotron">
+
+            <div class="row justify-content-md-center">
+                <h1 class="display-6">Criterio de emparejamiento</h1>
+            </div>
+
+            <form>
+
+                <div class="form-group row justify-content-md-center">
+                    <div class="col-sm-5">
+                        <strong>Género Preferido</strong>{{radio-button value='masculino' groupValue=generoPreferido }} Masculino
+                        {{radio-button value='femenino' groupValue=generoPreferido }} Femenino
+
+                    </div>
+
+                    <div class="col-sm-3">
+                        <select class="custom-select" nchange={{action 'seleccionarUbicacion' value='target.value' }}>
+                            <option value='ciudad'> Ciudad </option>
+                            <option value='provincia'> Provincia </option>
+                            <option value='pais'> País</option>
+                            <option value='no ubicacion'> No considerar ubicación </option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-4">
+                        Rango de edad preferido {{range-slider class='slider' mood='info' min=18 max=100 value=rangoEdadPreferido tooltip='always'}}
+                    </div>
+                </div>
+
+                <div class="form-group row justify-content-md-center">
+                    <button class="btn btn-primary" {{action 'actualizar'}}>Modificar perfil</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
 </div>
-
-<div class='column'>
-    <h2>Criterio de emparejamiento</h2>
-
-    Género Preferido
-    {{radio-button  value='masculino' groupValue=generoPreferido }} Masculino
-    {{radio-button  value='femenino' groupValue=generoPreferido }} Femenino
-    <select onchange={{action 'seleccionarUbicacion' value='target.value'}}>
-        <option value='ciudad'> Ciudad </option>
-        <option value='provincia'> Provincia </option>
-        <option value='pais'> País</option>
-        <option value='no ubicacion'> No considerar ubicación </option>
-    </select>
-    <br>
-    Rango de edad preferido
-    <br>
-    <br>
-    <br>
-    {{range-slider  class='slider' mood='info' min=18 max=100 value=rangoEdadPreferido tooltip='always'}}
-    <br>
-    <button {{action 'actualizar'}}>Modificar perfil</button>
-</div>
-
 
 {{outlet}}

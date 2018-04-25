@@ -1,14 +1,16 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Meet Your Random</a>
+    <a class="navbar-brand" href="#">
+        <img src="/random.png" width="30" height="30" class="d-inline-block align-top" alt=""> Meet Your Random
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
         aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav ml-auto">
 
             <li class="nav-item">
-                {{#link-to 'interfaz-principal' class="nav-link"}}Volver{{/link-to}}
+                {{#link-to 'interfaz-principal' class="nav-link"}}Iniciar Sesión{{/link-to}}
             </li>
 
         </ul>
@@ -89,14 +91,14 @@
                                         type='file'>
                                     <label class="custom-file-label" for="customFileLang">Foto de Perfil</label>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-3">
                         <div class="row justify-content-md-center">
-                            <img src={{fotoDePerfil}}/>
+                            <img class="profilePhoto" src={{fotoDePerfil}}/>
                         </div>
 
                     </div>
@@ -107,8 +109,6 @@
     </div>
 
 </div>
-
-
 
 <div class="row justify-content-md-center pt-3">
     <div class="col col-lg-8">
@@ -149,14 +149,5 @@
 
         </div>
     </div>
-
-</div>
-
-
-
-
-<div class='column'>
-
-
 
 </div>

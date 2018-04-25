@@ -1,6 +1,5 @@
 import Controller from '@ember/controller';
 import { inject as Service } from '@ember/service';
-import {get, set} from '@ember/object';
 
 export default Controller.extend({
 
@@ -16,7 +15,7 @@ export default Controller.extend({
             alert("el campo de la contraseña esta vacio");
             return;
           }
-
+          console.log(self.get('email'));
           this.get('session').open('firebase', {
             provider: provider,
             email: self.get('email'),
@@ -24,7 +23,7 @@ export default Controller.extend({
                 .then(function() {
                     var user = self.get('store').query('usuario', {
                       filter: {
-                        email: self.get('email')
+                        email: self.get('email'),
                       }
                     }).then(function(users) {
                       return users.get('firstObject');
@@ -34,7 +33,7 @@ export default Controller.extend({
                     })
                     self.transitionToRoute('sesion.usuario', id);
                 }).catch(function(error){
-                  console.log(error)
+                  //console.log(error)
                     if(error.code === "auth/user-not-found" ||
                         error.code === "auth/wrong-password" || error.code === "auth/invalid-email"
                         || error.code === "auth/wrong-password"){
