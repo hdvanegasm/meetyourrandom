@@ -22,16 +22,10 @@ export default Controller.extend({
             password: self.get('password')})
                 .then(function() {
                     var user = self.get('store').query('usuario', {
-                      filter: {
-                        email: self.get('email'),
-                      }
+                      orderBy: 'email',
+                      equalTo: self.get('email')
                     }).then(function(users) {
-                      let id = '';
-                      users.forEach((userElement) => {
-                        if(userElement.get('email') == self.get('email')) {
-                           id = userElement.get('id');
-                        }
-                      });
+                      let id = users.get('firstObject');
                       self.transitionToRoute('sesion.usuario', id);
                     })
                 }).catch(function(error){
