@@ -32,7 +32,6 @@ export default Controller.extend({
             if (email == null || contraseña == null || confirmacionContraseña == null ||
                 nombre == null || fechaNacimiento == null || ocupacion == null || biografia == null ||
                 ubicacion == null || fotoDePerfil == '/default.png' || email == '' ||
-
                 contraseña == '' || confirmacionContraseña == '' || nombre == '' ||
                 fechaNacimiento == '' || ocupacion == '' || biografia == '' || ubicacion == '' ||
                 fotoDePerfil == '') {
@@ -67,7 +66,14 @@ export default Controller.extend({
                     self.transitionToRoute('interfaz-principal');
                   })
                 }).catch((error) => {
-                  window.alert(error.message);
+                  if(error.code === 'auth/invalid-email'){
+                    window.alert('El email está mal formado');
+                  } else if(error.code = 'auth/email-already-in-use'){
+                    window.alert('El email ya existe');
+                  } else{
+                    window.alert(error.message);
+                  }
+
                 });
             }
         },
