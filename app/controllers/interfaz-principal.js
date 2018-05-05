@@ -15,21 +15,22 @@ export default Controller.extend({
             alert("el campo de la contraseña esta vacio");
             return;
           }
-          console.log(self.get('email'));
+
           this.get('session').open('firebase', {
             provider: provider,
             email: self.get('email'),
             password: self.get('password')})
                 .then(function() {
-                    var user = self.get('store').query('usuario', {
+                    document.getElementById("cargando").innerHTML = "cargando";
+                     self.get('store').query('usuario', {
                       orderBy: 'email',
                       equalTo: self.get('email')
                     }).then(function(users) {
                       let id = users.get('firstObject');
+                      document.getElementById("cargando").innerHTML = "";
                       self.transitionToRoute('sesion.usuario', id);
                     })
                 }).catch(function(error){
-                  //console.log(error)
                     if(error.code === "auth/user-not-found" ||
                         error.code === "auth/wrong-password" || error.code === "auth/invalid-email"
                         || error.code === "auth/wrong-password"){

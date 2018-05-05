@@ -7,8 +7,9 @@ export default Route.extend({
   },
   actions: {
     cerrarSesion: function(){
-        this.get('session').close();
-        this.transitionTo('interfaz-principal');
+        this.get('session').close().then(() => {
+          this.transitionTo('interfaz-principal');       
+        })
     }
    
   }

@@ -30,7 +30,7 @@ export default Controller.extend({
 
             // Al menos un campo requerido está vacío
             if (email == null || contraseña == null || confirmacionContraseña == null ||
-                nombre == null, fechaNacimiento == null || ocupacion == null || biografia == null ||
+                nombre == null || fechaNacimiento == null || ocupacion == null || biografia == null ||
                 ubicacion == null || fotoDePerfil == '/default.png' || email == '' ||
 
                 contraseña == '' || confirmacionContraseña == '' || nombre == '' ||
@@ -45,22 +45,23 @@ export default Controller.extend({
                 // Fecha de Nacimiento mayor a la actual
                 window.alert('Por favor ingrese una fecha previa a la del dia de hoy');
             } else {
-                var nuevoUsuario = this.store.createRecord('usuario', {
-                    email: email,
-                    contraseña: contraseña,
-                    fechaNacimiento: new Date(fechaNacimiento),
-                    nombre: nombre,
-                    genero: genero,
-                    ocupacion: ocupacion,
-                    biografia: biografia,
-                    ubicacion: ubicacion,
-                    fotoDePerfil: fotoDePerfil,
-                    estado: false,
-                    generoPreferido: generoPreferido,
-                    ubicacionPreferida: ubicacionPreferida,
-                    rangoEdadPreferido: [rangoEdadPreferido[0], rangoEdadPreferido[1]]
-                });
-                firebase.auth().createUserWithEmailAndPassword(email, contraseña).then(() => {
+                firebase.auth().createUserWithEmailAndPassword(email, contraseña).then((user) => {
+                    var nuevoUsuario = self.store.createRecord('usuario', {
+                        id: user.uid,
+                        email: email,
+                        contraseña: contraseña,
+                        fechaNacimiento: new Date(fechaNacimiento),
+                        nombre: nombre,
+                        genero: genero,
+                        ocupacion: ocupacion,
+                        biografia: biografia,
+                        ubicacion: ubicacion,
+                        fotoDePerfil: fotoDePerfil,
+                        estado: false,
+                        generoPreferido: generoPreferido,
+                        ubicacionPreferida: ubicacionPreferida,
+                        rangoEdadPreferido: [rangoEdadPreferido[0], rangoEdadPreferido[1]]
+                    });
                   nuevoUsuario.save().then(function() {
                     window.alert('Registro exitoso');
                     self.transitionToRoute('interfaz-principal');
