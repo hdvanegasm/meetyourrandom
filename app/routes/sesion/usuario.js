@@ -5,13 +5,4 @@ export default Route.extend({
   beforeModel: function() {
     return this.get('session').fetch().catch(function() {});
   },
-  actions: {
-    cerrarSesion: function(){
-        this.get('session').close().then(() => {
-          this.transitionTo('interfaz-principal');       
-        })
-    }
-   
-  }
-
 });
