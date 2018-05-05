@@ -2,6 +2,7 @@ import Controller from '@ember/controller';
 import * as firebase from 'firebase';
 
 export default Controller.extend({
+    cargando: false,
     actions: {
         registrar() {
             let self = this;
@@ -45,6 +46,7 @@ export default Controller.extend({
                 window.alert('Por favor ingrese una fecha previa a la del dia de hoy');
             } else {
                 firebase.auth().createUserWithEmailAndPassword(email, contraseña).then((user) => {
+                    self.set('cargando',true);
                     var nuevoUsuario = self.store.createRecord('usuario', {
                         id: user.uid,
                         email: email,
@@ -61,8 +63,9 @@ export default Controller.extend({
                         ubicacionPreferida: ubicacionPreferida,
                         rangoEdadPreferido: [rangoEdadPreferido[0], rangoEdadPreferido[1]]
                     });
-                  nuevoUsuario.save().then(function() {
+                  nuevoUsuario.save().then(function() {               
                     window.alert('Registro exitoso');
+                    self.set('cargando',false);
                     self.transitionToRoute('interfaz-principal');
                   })
                 }).catch((error) => {

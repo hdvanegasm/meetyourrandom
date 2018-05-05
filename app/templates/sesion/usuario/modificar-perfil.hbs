@@ -1,4 +1,20 @@
-
+{{#if cargando}}
+<div class="container">
+    <div class="row">
+        <div id="loader">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="lading"></div>
+        </div>
+    </div>
+</div>
+{{else}}
 <div class="row justify-content-md-center pt-5">
     <h1 class="display-4">Modificar perfil</h1>
 </div>
@@ -124,4 +140,4 @@
 
 </div>
 
-{{outlet}}
+{{outlet}} {{/if}}

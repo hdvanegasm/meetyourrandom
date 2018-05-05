@@ -2,7 +2,7 @@ import Controller from '@ember/controller';
 import { inject as Service } from '@ember/service';
 
 export default Controller.extend({
-
+    cargando: false,
     session: Service('session'),
     actions: {
         iniciarSesion: function (provider) {
@@ -22,13 +22,13 @@ export default Controller.extend({
                 password: self.get('password')
             })
                 .then(function () {
-                    document.getElementById('cargando').innerHTML = 'cargando';
+                    self.set('cargando', true)
                     self.get('store').query('usuario', {
                         orderBy: 'email',
                         equalTo: self.get('email')
                     }).then(function (users) {
                         let id = users.get('firstObject');
-                        document.getElementById('cargando').innerHTML = '';
+                        self.set('cargando', false)
                         self.transitionToRoute('sesion.usuario', id);
                     })
                 }).catch(function (error) {

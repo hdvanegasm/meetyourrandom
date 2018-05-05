@@ -1,11 +1,13 @@
 import Controller from '@ember/controller';
 export default Controller.extend({
-  
+    cargando: false,
     actions: {
-        cerrarSesion: function(){
+        cerrarSesion: function () {
+            this.set('cargando', true);
             this.get('session').close().then(() => {
-              this.transitionToRoute('interfaz-principal');       
+                this.set('cargando', false);
+                this.transitionToRoute('interfaz-principal');
             })
-        }      
-      }
+        }
+    }
 });
