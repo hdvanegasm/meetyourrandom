@@ -1,19 +1,5 @@
 {{#if cargando}}
-<div class="container">
-    <div class="row">
-        <div id="loader">
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="lading"></div>
-        </div>
-    </div>
-</div>
+    {{cargando-componente}}
 {{else}}
 <div class="row justify-content-md-center pt-5">
     <h1 class="display-4">Modificar perfil</h1>
@@ -95,9 +81,9 @@
 
         </div>
     </div>
-
+    
 </div>
-
+{{outlet}} 
 <div class="row justify-content-md-center pt-3">
     <div class="col col-lg-8">
         <div class="jumbotron">
@@ -139,5 +125,4 @@
     </div>
 
 </div>
-
-{{outlet}} {{/if}}
+{{/if}}

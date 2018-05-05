@@ -1,19 +1,5 @@
 {{#if cargando}}
-<div class="container">
-    <div class="row">
-        <div id="loader">
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="lading"></div>
-        </div>
-    </div>
-</div>
+    {{cargando-componente}}
 {{else}}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">
@@ -37,7 +23,7 @@
         </ul>
     </div>
 </nav>
-
+{{outlet}}
 <div class="row justify-content-md-center pt-5">
     <h1 class="display-6">Interfaz de sesión de usuario</h1>
 </div>
@@ -46,5 +32,5 @@
     <img src="/construction.png">
 </div>
 
-{{outlet}}
+
 {{/if}}
