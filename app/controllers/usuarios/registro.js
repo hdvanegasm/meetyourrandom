@@ -76,11 +76,7 @@ export default Controller.extend({
             const file = event.target.files[0];
             let imageData;
 
-            if (file.type != 'image/jpeg') {
-                if (file.type != 'image/png') {
-                    window.alert('Formato de imagen no reconocido');
-                }
-            } else {
+            if (file.type == 'image/jpeg' || file.type == 'image/png') {
                 reader.onload = () => {
                     imageData = reader.result;
                     this.set('fotoDePerfil', imageData);
@@ -88,6 +84,8 @@ export default Controller.extend({
                 if (file) {
                     reader.readAsDataURL(file);
                 }
+            } else {
+                window.alert('Formato de imagen no reconocido');
             }
 
         },
