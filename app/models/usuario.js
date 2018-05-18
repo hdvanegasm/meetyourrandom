@@ -13,5 +13,8 @@ export default DS.Model.extend({
     estado: DS.attr('boolean'),
     generoPreferido:  DS.attr('string'),
     ubicacionPreferida: DS.attr('string'),
-    rangoEdadPreferido:  DS.attr()
+    rangoEdadPreferido:  DS.attr(),
+
+    // Relaciones
+    listaFavoritos: DS.belongsTo('lista-favoritos', { inverse: 'propietario'})
 });

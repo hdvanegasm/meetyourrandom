@@ -12,5 +12,7 @@ export default DS.Model.extend({
 
     // Relaciones
     mensajes: DS.hasMany('mensaje'),
-    usuarios: DS.hasMany('usuario')
+    usuarios: DS.hasMany('usuario'),
+
+    favoritos: DS.hasMany('usuario')
 });

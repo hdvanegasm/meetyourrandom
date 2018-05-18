@@ -9,6 +9,7 @@
     {{input name='contenidoMensaje' value=contenidoMensaje type='text' placeholder='Escriba su mensaje aquí'}}
     <button name='enviarMensaje' {{action 'enviar'}}>Enviar Mensaje</button>
     <button name='cerrarChat' {{action 'cerrar'}}>Cerrar chat</button>
+    <button name='agregarFavoritos' {{action 'agregar'}}>Agregar a favoritos</button>
 {{else if (estado-chat model.estado 'iniciado')}}
     <p>No ha ingresado ningún usuario</p>
     <button {{action 'cerrar'}}>Volver</button>

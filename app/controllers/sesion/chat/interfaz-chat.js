@@ -1,5 +1,6 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
+import { filter } from 'rsvp';
 
 export default Controller.extend({
     sesion: service('session'),
@@ -30,6 +31,21 @@ export default Controller.extend({
             this.get('model').save().then(() => {
                 this.transitionToRoute('sesion.usuario', this.get('sesion').get('uid'));
             });
+        },
+
+        agregar() {
+            let usuario = this.get('store').peekRecord('usuario', this.get('sesion').get('uid'));
+            this.get('model').get('favoritos').pushObject(usuario);
+            this.get('model').save().then((chat) => {
+                if(chat.get('favoritos').get('length') == 2) {
+                    let userArray = this.get('model').get('usuarios').filter(usuario => usuario.get('id') != this.get('session').get('uid'));
+                    console.log(usuario.get('listaFavoritos').get('usuarios'));
+                    //usuario.get('listaFavoritos').get('usuarios').pushObject(usuarioArray[0]);
+                    //usuario.save().then(() => {
+
+                    //})
+                }
+            })
         }
     }
 });
