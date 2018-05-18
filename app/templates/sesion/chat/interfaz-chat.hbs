@@ -1,0 +1,19 @@
+<h1>Entro al chat</h1>
+{{model.estado}}
+<ul>
+    {{#each model.mensajes as |mensaje|}}
+        <li>({{mensaje.emisor.email}} - {{mensaje.fecha}}) {{mensaje.contenido}}</li>
+    {{/each}}
+</ul>
+{{#if (estado-chat model.estado 'conversacion')}}
+    {{input name='contenidoMensaje' value=contenidoMensaje type='text' placeholder='Escriba su mensaje aquí'}}
+    <button name='enviarMensaje' {{action 'enviar'}}>Enviar Mensaje</button>
+    <button name='cerrarChat' {{action 'cerrar'}}>Cerrar chat</button>
+{{else if (estado-chat model.estado 'iniciado')}}
+    <p>No ha ingresado ningún usuario</p>
+    <button {{action 'cerrar'}}>Volver</button>
+{{else}}
+    <p>El otro usuario ha abandonado el chat</p>
+    <button {{action 'cerrar'}}>Volver</button>
+{{/if}}
+{{outlet}}

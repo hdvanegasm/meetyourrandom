@@ -8,7 +8,7 @@ export default DS.Model.extend({
         * conversacion (los dos usuarios estan en conversacion)
         * iniciado (acaba de iniciar el chat pero hay solo un usuario)
     */
-    estado: DS.attr('estado'),
+    estado: DS.attr('string'),
 
     // Relaciones
     mensajes: DS.hasMany('mensaje'),
