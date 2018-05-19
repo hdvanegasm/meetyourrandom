@@ -16,5 +16,6 @@ export default DS.Model.extend({
     rangoEdadPreferido:  DS.attr(),
 
     // Relaciones
-    listaFavoritos: DS.belongsTo('lista-favoritos', { inverse: 'propietario'})
+    listaFavoritos: DS.belongsTo('lista-favoritos', { inverse: 'propietario'}),
+    solicitudes: DS.hasMany('solicitud-conexion', { inverse: 'receptor'})
 });

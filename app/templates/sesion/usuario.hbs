@@ -34,7 +34,11 @@
   <h2>Usuarios favoritos</h2>
   <ul>
     {{#each model.listaFavoritos.usuarios as |usuarioFavorito|}}
-      <li>{{usuarioFavorito.email}} <button {{action 'eliminar' model.listaFavoritos usuarioFavorito}}>Eliminar</button></li>
+      <li>
+        {{usuarioFavorito.email}}
+        <button {{action 'eliminar' model.listaFavoritos usuarioFavorito}}>Eliminar</button>
+        <button {{action 'enviar' usuarioFavorito}}>Solicitar Conexion</button>
+      </li>
     {{/each}}
   </ul>
 </div>

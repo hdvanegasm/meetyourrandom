@@ -17,11 +17,11 @@ export default Controller.extend({
     cerrarSesion() {
       this.set("cargando", true);
       this.get("session")
-        .close()
-        .then(() => {
-          this.set("cargando", false);
-          this.transitionToRoute("interfaz-principal");
-        });
+      .close()
+      .then(() => {
+        this.set("cargando", false);
+        this.transitionToRoute("interfaz-principal");
+      });
     },
 
     async buscar() {
@@ -30,38 +30,38 @@ export default Controller.extend({
         this.get("sesion").get("uid")
       );
       await this.get("store")
-        .query("chat", {
-          orderBy: "estado",
-          equalTo: "iniciado"
-        })
-        .then(async chats => {
-          if (chats.get("length") != 0) {
+      .query("chat", {
+        orderBy: "estado",
+        equalTo: "iniciado"
+      })
+      .then(async chats => {
+        if (chats.get("length") != 0) {
 
-            const chatValidosPromises = chats.map(chat => {
-              return chat.get("usuarios").then(usuarios => {
-                return usuarios.get("firstObject");
-              }).then(usuarioChat => {
-                let minEdadUsuarioChat = usuarioChat.get("rangoEdadPreferido")[0];
-                let maxEdadUsuarioChat = usuarioChat.get("rangoEdadPreferido")[1];
+          const chatValidosPromises = chats.map(chat => {
+            return chat.get("usuarios").then(usuarios => {
+              return usuarios.get("firstObject");
+            }).then(usuarioChat => {
+              let minEdadUsuarioChat = usuarioChat.get("rangoEdadPreferido")[0];
+              let maxEdadUsuarioChat = usuarioChat.get("rangoEdadPreferido")[1];
 
-                let minEdadUsuario = usuario.get("rangoEdadPreferido")[0];
-                let maxEdadUsuario = usuario.get("rangoEdadPreferido")[1];
+              let minEdadUsuario = usuario.get("rangoEdadPreferido")[0];
+              let maxEdadUsuario = usuario.get("rangoEdadPreferido")[1];
 
-                // Calcula la edad del usuario actual
-                let fechaActual = new Date();
-                let fechaNacimientoUsuario = new Date(
-                  usuario.get("fechaNacimiento")
-                );
-                let edadUsuario =
-                  fechaActual.getFullYear() -
-                  fechaNacimientoUsuario.getFullYear();
-                let mesesUsuario =
-                  fechaActual.getMonth() - fechaNacimientoUsuario.getMonth();
+              // Calcula la edad del usuario actual
+              let fechaActual = new Date();
+              let fechaNacimientoUsuario = new Date(
+                usuario.get("fechaNacimiento")
+              );
+              let edadUsuario =
+              fechaActual.getFullYear() -
+              fechaNacimientoUsuario.getFullYear();
+              let mesesUsuario =
+              fechaActual.getMonth() - fechaNacimientoUsuario.getMonth();
 
-                if (
-                  mesesUsuario < 0 ||
-                  (mesesUsuario == 0 &&
-                    fechaActual.getDate() < fechaNacimientoUsuario.getDate())
+              if (
+                mesesUsuario < 0 ||
+                (mesesUsuario == 0 &&
+                  fechaActual.getDate() < fechaNacimientoUsuario.getDate())
                 ) {
                   edadUsuario--;
                 }
@@ -71,65 +71,88 @@ export default Controller.extend({
                   usuarioChat.get("fechaNacimiento")
                 );
                 let edadUsuarioChat =
-                  fechaActual.getFullYear() -
-                  fechaNacimientoUsuarioChat.getFullYear();
+                fechaActual.getFullYear() -
+                fechaNacimientoUsuarioChat.getFullYear();
                 let mesesUsuarioChat =
-                  fechaActual.getMonth() - fechaNacimientoUsuarioChat.getMonth();
+                fechaActual.getMonth() - fechaNacimientoUsuarioChat.getMonth();
 
                 if (
                   mesesUsuarioChat < 0 ||
                   (mesesUsuarioChat == 0 &&
                     fechaActual.getDate() < fechaNacimientoUsuarioChat.getDate())
-                ) {
-                  edadUsuarioChat--;
-                }
+                  ) {
+                    edadUsuarioChat--;
+                  }
 
-                if (
-                  minEdadUsuarioChat <= edadUsuario &&
-                  edadUsuario <= maxEdadUsuarioChat &&
-                  usuarioChat.get("genero") == usuario.get("generoPreferido") &&
-                  minEdadUsuario <= edadUsuarioChat &&
-                  edadUsuarioChat <= maxEdadUsuario &&
-                  usuario.get("genero") == usuarioChat.get("generoPreferido")
-                ) {
-                  return chat;
-                } else {
-                  return null;
-                }
+                  if (
+                    minEdadUsuarioChat <= edadUsuario &&
+                    edadUsuario <= maxEdadUsuarioChat &&
+                    usuarioChat.get("genero") == usuario.get("generoPreferido") &&
+                    minEdadUsuario <= edadUsuarioChat &&
+                    edadUsuarioChat <= maxEdadUsuario &&
+                    usuario.get("genero") == usuarioChat.get("generoPreferido")
+                  ) {
+                    return chat;
+                  } else {
+                    return null;
+                  }
+                });
               });
-            });
 
-            filter(chatValidosPromises, chat => chat !== null).then((chatsValidos) => {
-              let chatCreado;
+              filter(chatValidosPromises, chat => chat !== null).then((chatsValidos) => {
+                let chatCreado;
 
-              if (chatsValidos.length != 0) {
-                chatCreado = chatsValidos[Math.floor(Math.random() * chatsValidos.length)];
-                chatCreado.set('estado', 'conversacion');
-                chatCreado.get('usuarios').pushObject(usuario);
-              } else {
-                chatCreado = this.crearChat(usuario);
-              }
+                if (chatsValidos.length != 0) {
+                  chatCreado = chatsValidos[Math.floor(Math.random() * chatsValidos.length)];
+                  chatCreado.set('estado', 'conversacion');
+                  chatCreado.get('usuarios').pushObject(usuario);
+                } else {
+                  chatCreado = this.crearChat(usuario);
+                }
 
-              chatCreado.save().then((chat) => {
+                chatCreado.save().then((chat) => {
+                  this.transitionToRoute('sesion.chat.interfaz-chat', chat.get('id'));
+                });
+              });
+
+            } else {
+              this.crearChat(usuario).save().then((chat) => {
                 this.transitionToRoute('sesion.chat.interfaz-chat', chat.get('id'));
               });
+            }
+          });
+        },
+
+        eliminar(listaUsuariosFavoritos, usuarioEliminar) {
+          listaUsuariosFavoritos.then(listaUsuarios => {
+            listaUsuarios.get('usuarios').removeObject(usuarioEliminar);
+            listaUsuarios.save().then(() => {
+              window.alert('Usuario favorito eliminado');
+            })
+          });
+        },
+
+        enviar(usuarioDestino) {
+
+          let nuevaSolicitud = this.get('store').createRecord('solicitud-conexion', {
+            fecha: new Date(),
+            estado: false // Sin responder
+          });
+
+
+          this.get('store').findRecord('usuario', this.get('sesion').get('uid')).then(usuarioEmisor => {
+            nuevaSolicitud.set('emisor', usuarioEmisor);
+            nuevaSolicitud.set('receptor', usuarioDestino);
+            
+            usuarioDestino.get('solicitudes').pushObject(nuevaSolicitud);
+            usuarioDestino.save().then(() => {
+              nuevaSolicitud.save().then(() => {
+                // TODO redirigir al usuario actual a un nuevo chat
+                console.log('Solicitud de amistad enviada');
+              })
             });
 
-          } else {
-            this.crearChat(usuario).save().then((chat) => {
-              this.transitionToRoute('sesion.chat.interfaz-chat', chat.get('id'));
-            });
-          }
-        });
-    },
-
-    eliminar(listaUsuariosFavoritos, usuarioEliminar) {
-      listaUsuariosFavoritos.then(listaUsuarios => {
-        listaUsuarios.get('usuarios').removeObject(usuarioEliminar);
-        listaUsuarios.save().then(() => {
-          window.alert('Usuario favorito eliminado');
-        })
-      });
-    }
-  }
-});
+          })
+        }
+      }
+    });
