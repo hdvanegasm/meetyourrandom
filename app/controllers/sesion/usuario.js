@@ -121,6 +121,15 @@ export default Controller.extend({
             });
           }
         });
+    },
+
+    eliminar(listaUsuariosFavoritos, usuarioEliminar) {
+      listaUsuariosFavoritos.then(listaUsuarios => {
+        listaUsuarios.get('usuarios').removeObject(usuarioEliminar);
+        listaUsuarios.save().then(() => {
+          window.alert('Usuario favorito eliminado');
+        })
+      });
     }
   }
 });
