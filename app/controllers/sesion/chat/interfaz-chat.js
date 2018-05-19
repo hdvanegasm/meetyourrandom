@@ -35,17 +35,29 @@ export default Controller.extend({
     },
 
     agregar() {
-      this.get('store').findRecord('usuario', this.get('sesion').get('uid')).then( usuario => {
-        this.get('model').get('favoritos').pushObject(usuario);
+      this.get('store').findRecord('usuario', this.get('sesion').get('uid')).then(usuarioActual => {
+        this.get('model').get('favoritos').pushObject(usuarioActual);
         this.get('model').save().then((chat) => {
           if(chat.get('favoritos').get('length') == 2) {
-
-            //let userArray = this.get('model').get('usuarios').filter(usuario => usuario.get('id') != this.get('session').get('uid'));
-            //console.log(usuario.get('listaFavoritos').get('usuarios'));
-            //usuario.get('listaFavoritos').get('usuarios').pushObject(usuarioArray[0]);
-            //usuario.save().then(() => {
-
-            //})
+            this.get('model').get('usuarios').then((usuariosChat) => {
+              usuariosChat.forEach((usuarioChat) => {
+                if(usuarioChat.get('id') != this.get('sesion').get('uid')) {
+                  
+                  // En este momento tengo al otro usuario para agregarlo a mis favoritos
+                  usuarioActual.get('listaFavoritos').then((listaFavoritosUsuarioActual) => {
+                    listaFavoritosUsuarioActual.get('usuarios').pushObject(usuarioChat);
+                    listaFavoritosUsuarioActual.save().then(() => {
+                      usuarioChat.get('listaFavoritos').then((listaFavoritosUsuarioChat) => {
+                        listaFavoritosUsuarioChat.get('usuarios').pushObject(usuarioActual);
+                        listaFavoritosUsuarioChat.save().then(() => {
+                          console.log('Esta hecho');
+                        })
+                      })
+                    });
+                  });
+                }
+              });
+            });
           }
         });
       });

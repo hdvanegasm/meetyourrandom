@@ -30,6 +30,15 @@
 
 <button name="emparejar" {{action 'buscar'}}>Emparejar</button>
 
+<div class="lista-favoritos">
+  <h2>Usuarios favoritos</h2>
+  <ul>
+    {{#each model.listaFavoritos.usuarios as |usuarioFavorito|}}
+      <li>{{usuarioFavorito.email}}</li>
+    {{/each}}
+  </ul>
+</div>
+
 <div class="row justify-content-md-center pt-5">
     <img src="/construction.png">
 </div>
