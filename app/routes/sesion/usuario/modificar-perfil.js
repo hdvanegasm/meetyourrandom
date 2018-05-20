@@ -2,7 +2,7 @@ import Route from '@ember/routing/route';
 
 export default Route.extend({
   idUser: null,
-  setupController(controller, model) {
+  setupController() {
       this.controller.set('idUser', this.get('idUser'));
       let self = this;
       this.get('store').findRecord('usuario', this.get('idUser').id).then(function(usuario) {
@@ -15,11 +15,10 @@ export default Route.extend({
         self.controller.set('ubicacion', usuario.get('ubicacion'));
         self.controller.set('fotoDePerfil', usuario.get('fotoDePerfil'));
         self.controller.set('generoPreferido', usuario.get('generoPreferido'));
-        self.controller.set('ubicacionPreferida', usuario.get('ubicacionPreferida'));
         self.controller.set('rangoEdadPreferido', [usuario.get('rangoEdadPreferido')[0],usuario.get('rangoEdadPreferido')[1]]);
       });
     },
-    model({id}) {
+    model() {
       this.set('idUser', this.modelFor('sesion/usuario'))
       return this.modelFor('sesion/usuario');
     }

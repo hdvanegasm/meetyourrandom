@@ -8,10 +8,10 @@ export default Controller.extend({
             let self = this;
             let { contraseña, confirmacionContraseña, nombre,
                 genero, ocupacion, biografia, ubicacion, fotoDePerfil,
-                generoPreferido, ubicacionPreferida, rangoEdadPreferido } =
+                generoPreferido, rangoEdadPreferido } =
                 this.getProperties('contraseña', 'confirmacionContraseña', 'nombre',
                     'genero', 'ocupacion', 'biografia', 'ubicacion',
-                    'fotoDePerfil', 'generoPreferido', 'ubicacionPreferida',
+                    'fotoDePerfil', 'generoPreferido',
                     'rangoEdadPreferido');
 
 
@@ -43,7 +43,6 @@ export default Controller.extend({
                     usuario.set('ubicacion', ubicacion);
                     usuario.set('estado', false);
                     usuario.set('generoPreferido', generoPreferido);
-                    usuario.set('ubicacionPreferida', ubicacionPreferida);
                     usuario.set('rangoEdadPreferido', [rangoEdadPreferido[0], rangoEdadPreferido[1]]);                    
                     usuario.save().then(function () {
                         alerta.innerHTML = 'Perfil actualizado';
@@ -80,9 +79,6 @@ export default Controller.extend({
                 }
             }
 
-        },
-        seleccionarUbicacion(ubicacion) {
-            this.set('ubicacionPreferida', ubicacion);
         }
     }
 });

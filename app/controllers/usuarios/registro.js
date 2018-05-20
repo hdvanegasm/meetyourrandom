@@ -8,11 +8,10 @@ export default Controller.extend({
       let self = this;
       let { email, contraseña, confirmacionContraseña, nombre, fechaNacimiento,
         genero, ocupacion, biografia, ubicacion, fotoDePerfil,
-        generoPreferido, ubicacionPreferida, rangoEdadPreferido } =
+        generoPreferido, rangoEdadPreferido } =
         this.getProperties('email', 'contraseña', 'confirmacionContraseña', 'nombre',
           'fechaNacimiento', 'genero', 'ocupacion', 'biografia', 'ubicacion',
-          'fotoDePerfil', 'generoPreferido', 'ubicacionPreferida',
-          'rangoEdadPreferido');
+          'fotoDePerfil', 'generoPreferido', 'rangoEdadPreferido');
 
       //Obtener fecha actual como string
       let hoy = new Date();
@@ -61,9 +60,7 @@ export default Controller.extend({
             biografia: biografia,
             ubicacion: ubicacion,
             fotoDePerfil: fotoDePerfil,
-            estado: false,
             generoPreferido: generoPreferido,
-            ubicacionPreferida: ubicacionPreferida,
             rangoEdadPreferido: [rangoEdadPreferido[0], rangoEdadPreferido[1]]
           });
           let listaFavoritosNuevoUsuario = self.store.createRecord('lista-favoritos');
@@ -81,7 +78,7 @@ export default Controller.extend({
           if (error.code === 'auth/invalid-email') {
             alerta.innerHTML = 'El email está mal formado';
             clickMe.click();
-          } else if (error.code = 'auth/email-already-in-use') {
+          } else if (error.code === 'auth/email-already-in-use') {
             alerta.innerHTML = 'El email ya existe';
             clickMe.click();
           } else {
@@ -106,13 +103,10 @@ export default Controller.extend({
           reader.readAsDataURL(file);
         }
       } else {
-        alerta.innerHTML = 'Formato de imagen no reconocido'
-        clickMe.click();
+        document.getElementById('alerta').innerHTML = 'Formato de imagen no reconocido';
+        document.getElementById('clickMe').click();
       }
 
-    },
-    seleccionarUbicacion(ubicacion) {
-      this.set('ubicacionPreferida', ubicacion);
     }
   }
 });

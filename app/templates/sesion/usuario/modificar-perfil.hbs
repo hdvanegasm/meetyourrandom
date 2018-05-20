@@ -95,22 +95,13 @@
             <form>
 
                 <div class="form-group row justify-content-md-center">
-                    <div class="col-sm-5">
+                    <div class="col-sm-6">
                         <strong>Género Preferido</strong>{{radio-button value='masculino' groupValue=generoPreferido }} Masculino
                         {{radio-button value='femenino' groupValue=generoPreferido }} Femenino
 
                     </div>
 
                     <div class="col-sm-3">
-                        <select class="custom-select" nchange={{action 'seleccionarUbicacion' value='target.value' }}>
-                            <option value='ciudad'> Ciudad </option>
-                            <option value='provincia'> Provincia </option>
-                            <option value='pais'> País</option>
-                            <option value='no ubicacion'> No considerar ubicación </option>
-                        </select>
-                    </div>
-
-                    <div class="col-sm-4">
                         Rango de edad preferido {{range-slider class='slider' mood='info' min=18 max=100 value=rangoEdadPreferido tooltip='always'}}
                     </div>
                 </div>

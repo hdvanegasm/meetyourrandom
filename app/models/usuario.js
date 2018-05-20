@@ -10,9 +10,7 @@ export default DS.Model.extend({
     biografia: DS.attr('string'),
     ubicacion: DS.attr('string'),
     fotoDePerfil: DS.attr('string'),
-    estado: DS.attr('boolean'),
     generoPreferido:  DS.attr('string'),
-    ubicacionPreferida: DS.attr('string'),
     rangoEdadPreferido:  DS.attr(),
 
     // Relaciones

@@ -1,6 +1,5 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
-import { filter } from 'rsvp';
 
 export default Controller.extend({
   sesion: service('session'),
@@ -50,9 +49,7 @@ export default Controller.extend({
                     listaFavoritosUsuarioActual.save().then(() => {
                       usuarioChat.get('listaFavoritos').then((listaFavoritosUsuarioChat) => {
                         listaFavoritosUsuarioChat.get('usuarios').pushObject(usuarioActual);
-                        listaFavoritosUsuarioChat.save().then(() => {
-                          console.log('Esta hecho');
-                        })
+                        listaFavoritosUsuarioChat.save();
                       })
                     });
                   });
