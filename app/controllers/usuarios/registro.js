@@ -82,7 +82,7 @@ export default Controller.extend({
             alerta.innerHTML = 'El email ya existe';
             clickMe.click();
           } else {
-            alerta.innerHTML = error.message;
+            alerta.innerHTML = 'Ha ocurrido un error, no se pudo registrar la información';
             clickMe.click();
           }
 
