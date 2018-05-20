@@ -1,6 +1,5 @@
-{{#if cargando}}
-    {{cargando-componente}}
-{{else}}
+ {{#if cargando}} {{cargando-componente}} {{else}}
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">
         <img src="/random.png" width="30" height="30" class="d-inline-block align-top" alt=""> Meet Your Random
@@ -23,52 +22,131 @@
         </ul>
     </div>
 </nav>
-{{outlet}}
-<div class="row justify-content-md-center pt-5">
-    <h1 class="display-6">Interfaz de sesión de usuario</h1>
+
+<div class="container">
+
+    <div class="row justify-content-center pt-5">
+
+        <div class="col-8">
+            <div class="card">
+                <div class="card-body">
+
+                    <div class="row align-items-center">
+                        <div class="col-2">
+                            <img src={{model.fotoDePerfil}} width="80px" class="img-thumbnail rounded float-left">
+
+                        </div>
+                        <div class="col-10">
+                            <div class="row justify-content-center">
+                                <strong>{{model.nombre}}</strong>
+                            </div>
+                            <div class="row">
+                                <span><em>{{model.biografia}}</em></span>
+                            </div>
+                            <div class="row align-items-center justify-content-center">
+                                <span class="badge badge-info badge-pill">
+                                    <i class="fas fa-thumbtack"></i> {{model.ubicacion}}</span>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row pt-5">
+
+        <div class="col-6">
+            <ul class="list-group">
+
+                <li class="list-group-item list-group-item-primary align-items-center">
+                    <div class="row justify-content-center">
+                        Usuarios favoritos
+                    </div>
+                </li>
+
+                {{#each model.listaFavoritos.usuarios as |usuarioFavorito|}}
+                <li class="list-group-item">
+
+                    <div class="row justify-content-center">
+                        {{usuarioFavorito.email}}
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-primary" {{action 'enviar' usuarioFavorito}}>Solicitar conexión</button>
+                            <button type="button" class="btn btn-danger" {{action 'eliminar' model.listaFavoritos usuarioFavorito}}>Eliminar</button>
+                        </div>
+
+                    </div>
+
+                </li>
+                {{else}}
+                <li class="list-group-item">
+
+                    <div class="row justify-content-center">
+                        No hay usuarios favoritos
+                    </div>
+                </li>
+
+                {{/each}}
+
+            </ul>
+
+
+            <ul class="list-group pt-5">
+
+                <li class="list-group-item list-group-item-warning align-items-center">
+                    <div class="row justify-content-center">
+                        Solicitudes de conexión
+                    </div>
+                </li>
+
+                {{#each model.solicitudes as |solicitud|}}
+
+                <li class="list-group-item">
+
+                    <div class="row justify-content-center align-items-center">
+                        <span class="badge badge-warning badge-pill">De</span>
+                        <span class="badge badge-light">{{solicitud.emisor.email}}</span>
+                        <span class="badge badge-primary badge-pill">{{date-format solicitud.fecha "DD/MM/YYYY - HH:MM"}}</span>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-primary" {{action 'responder' true solicitud}}>Aceptar</button>
+                            <button type="button" class="btn btn-danger" {{action 'responder' false solicitud}}>Eliminar</button>
+                        </div>
+
+                    </div>
+
+                </li>
+                {{else}}
+                <li class="list-group-item">
+
+                    <div class="row justify-content-center">
+                        No hay solicitudes de conexión
+                    </div>
+                </li>
+                {{/each}}
+
+            </ul>
+
+        </div>
+        <div class="col-6">
+            <div class="row justify-content-md-center pt-5">
+                <img src="/random2.png" {{action 'buscar'}}>
+            </div>
+        </div>
+    </div>
+
 </div>
 
-<button name="emparejar" {{action 'buscar'}}>Emparejar</button>
+{{outlet}} {{/if}}
 
-<div class="lista-favoritos">
-  <h2>Usuarios favoritos</h2>
-  {{#if model.listaFavoritos.usuarios}}
-    <ul>
-      {{#each model.listaFavoritos.usuarios as |usuarioFavorito|}}
-        <li>
-          {{usuarioFavorito.email}}
-          <button {{action 'eliminar' model.listaFavoritos usuarioFavorito}}>Eliminar</button>
-          <button {{action 'enviar' usuarioFavorito}}>Solicitar Conexion</button>
-        </li>
-      {{/each}}
-    </ul>
-  {{else}}
-    No hay usuarios favoritos
-  {{/if}}
-</div>
-
-<div class="solicitudes-conexion">
-  <h2>Solicitudes de Conexion</h2>
-  {{#if model.solicitudes}}
-    <ul>
-      {{#each model.solicitudes as |solicitud|}}
-        <li>
-          <strong>De: </strong>{{solicitud.emisor.email}} - <strong>Fecha: </strong>{{date-format solicitud.fecha "DD/MM/YYYY - HH:MM"}}
-          <button {{action 'responder' true solicitud}}>Aceptar</button>
-          <button {{action 'responder' false solicitud}}>Rechazar</button>
-        </li>
-      {{/each}}
-    </ul>
-  {{else}}
-    <p>No hay solicitudes de conexión</p>
-  {{/if}}
-</div>
-
-<div class="row justify-content-md-center pt-5">
-    <img src="/construction.png">
-</div>
-
-{{/if}}
 <div id="popup1" class="overlay">
     <div class="popup">
         <div>
