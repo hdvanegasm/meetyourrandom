@@ -128,6 +128,9 @@ export default Controller.extend({
               document.getElementById('alerta').innerHTML = 'Usuario favorito eliminado';
               document.getElementById('clickMe').click();
             })
+          }).catch(() => {
+            document.getElementById('alerta').innerHTML = 'Se ha perdido la conexión con el servidor';
+            document.getElementById('clickMe').click();
           });
         },
 
@@ -151,11 +154,13 @@ export default Controller.extend({
                 chatNuevo.save().then((chat) => {
                   this.set('cargando', false);
                   this.transitionToRoute('sesion.chat.interfaz-chat', chat.get('id'));
-                });
+                })
               })
             });
-
-          })
+          }).catch(() => {
+            document.getElementById('alerta').innerHTML = 'Se ha perdido la conexión con el servidor';
+            document.getElementById('clickMe').click();
+          });
         },
 
         responder(respuesta, solicitud) {

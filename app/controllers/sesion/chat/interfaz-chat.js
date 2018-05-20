@@ -95,6 +95,9 @@ export default Controller.extend({
                     });
                   });
               }
+            }).catch(() => {
+              document.getElementById('alerta').innerHTML = 'Se ha perdido la conexión con el servidor';
+              document.getElementById('clickMe').click();
             });
         });
     }
