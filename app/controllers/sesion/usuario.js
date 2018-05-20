@@ -133,7 +133,8 @@ export default Controller.extend({
             listaUsuarios.get('usuarios').removeObject(usuarioEliminar);
             listaUsuarios.save().then(() => {
               this.set('cargando', false);
-              window.alert('Usuario favorito eliminado');
+              document.getElementById('alerta').innerHTML = 'Usuario favorito eliminado';
+              document.getElementById('clickMe').click();
             })
           });
         },

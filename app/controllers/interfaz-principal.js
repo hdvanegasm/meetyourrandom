@@ -6,14 +6,15 @@ export default Controller.extend({
     session: Service('session'),
     actions: {
         iniciarSesion: function (provider) {
+            let alerta = document.getElementById('alerta');
+            let clickMe = document.getElementById('clickMe');
             let self = this;
             if (self.get('email') === undefined || self.get('email') === '') {
-                alert('el campo de email esta vacío');
-                return;
-            }
-            if (self.get('password') === undefined || self.get('password') === '') {
-                alert('el campo de la contraseña esta vacío');
-                return;
+                alerta.innerHTML = 'El campo de email esta vacío';
+                clickMe.click();
+            } else if (self.get('password') === undefined || self.get('password') === '') {
+                alerta.innerHTML = 'El campo contraseña esta vacío';
+                clickMe.click();
             }
 
             this.get('session').open('firebase', {
@@ -35,8 +36,8 @@ export default Controller.extend({
                     if (error.code === 'auth/user-not-found' ||
                         error.code === 'auth/wrong-password' || error.code === 'auth/invalid-email'
                         || error.code === 'auth/wrong-password') {
-
-                        alert('Usuario o la contraseña son inválidos');
+                        alerta.innerHTML = 'Usuario o la contraseña son inválidos';
+                        clickMe.click();
                     }
                 });
         },

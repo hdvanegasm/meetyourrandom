@@ -14,6 +14,9 @@ export default Controller.extend({
                     'fotoDePerfil', 'generoPreferido', 'ubicacionPreferida',
                     'rangoEdadPreferido');
 
+
+            let alerta = document.getElementById('alerta');
+            let clickMe = document.getElementById('clickMe');
             if (contraseña == null || confirmacionContraseña == null ||
                 nombre == null || ocupacion == null || biografia == null ||
                 ubicacion == null ||
@@ -22,10 +25,12 @@ export default Controller.extend({
                 ocupacion == '' || biografia == '' || ubicacion == '' ||
                 fotoDePerfil == '') {
 
-                window.alert('Por favor llene por completo todos los campos');
+                alerta.innerHTML = 'Por favor llene por completo todos los campos';
+                clickMe.click();
             } else if (contraseña != confirmacionContraseña) {
                 //Contraseñas no coincidem
-                window.alert('Las contraseñas no coinciden');
+                alerta.innerHTML = 'Las contraseñas no coinciden';
+                clickMe.click();
             } else {
                 this.set('cargando', true);
                 this.get('store').findRecord('usuario', this.get('idUser').id).then(function (usuario) {
@@ -39,15 +44,16 @@ export default Controller.extend({
                     usuario.set('estado', false);
                     usuario.set('generoPreferido', generoPreferido);
                     usuario.set('ubicacionPreferida', ubicacionPreferida);
-                    usuario.set('rangoEdadPreferido', [rangoEdadPreferido[0], rangoEdadPreferido[1]]);
-
+                    usuario.set('rangoEdadPreferido', [rangoEdadPreferido[0], rangoEdadPreferido[1]]);                    
                     usuario.save().then(function () {
+                        alerta.innerHTML = 'Perfil actualizado';
+                        clickMe.click();
                         self.set('cargando', false);
-                        window.alert('Perfil actualizado');                    
                         self.transitionToRoute('sesion.usuario');
                     }).catch(function () {
-                        this.set('cargando', false);
-                        window.alert('Ha ocurrido un error, no se pudo actualizar la información')
+                        self.set('cargando', false);
+                        alerta.innerHTML = 'Ha ocurrido un error, no se pudo actualizar la información';
+                        clickMe.click();
                     });
                 });
             }
@@ -58,10 +64,12 @@ export default Controller.extend({
             const reader = new FileReader();
             const file = event.target.files[0];
             let imageData;
-
+            let alerta = document.getElementById('alerta');
+            let clickMe = document.getElementById('clickMe');
             if (file.type != 'image/jpeg') {
                 if (file.type != 'image/png') {
-                    window.alert('Formato de imagen no reconocido');
+                    alerta.innerHTML = 'Formato de imagen no reconocido';
+                    clickMe.click();
                 }
             } else {
                 reader.onload = () => {
