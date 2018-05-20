@@ -26,6 +26,7 @@ export default Controller.extend({
     },
 
     async buscar() {
+      this.set('cargando', true);
       const usuario = await this.get("store").findRecord(
         "usuario",
         this.get("sesion").get("uid")
@@ -112,12 +113,14 @@ export default Controller.extend({
                 }
 
                 chatCreado.save().then((chat) => {
+                  this.set('cargando', false);
                   this.transitionToRoute('sesion.chat.interfaz-chat', chat.get('id'));
                 });
               });
 
             } else {
               this.crearChat(usuario).save().then((chat) => {
+                this.set('cargando', false);
                 this.transitionToRoute('sesion.chat.interfaz-chat', chat.get('id'));
               });
             }
@@ -125,15 +128,18 @@ export default Controller.extend({
         },
 
         eliminar(listaUsuariosFavoritos, usuarioEliminar) {
+          this.set('cargando', true);
           listaUsuariosFavoritos.then(listaUsuarios => {
             listaUsuarios.get('usuarios').removeObject(usuarioEliminar);
             listaUsuarios.save().then(() => {
+              this.set('cargando', false);
               window.alert('Usuario favorito eliminado');
             })
           });
         },
 
         enviar(usuarioDestino) {
+          this.set('cargando', true);
           let nuevaSolicitud = this.get('store').createRecord('solicitud-conexion', {
             fecha: new Date(),
             estado: false // Sin responder
@@ -150,6 +156,7 @@ export default Controller.extend({
             usuarioDestino.save().then(() => {
               nuevaSolicitud.save().then(() => {
                 chatNuevo.save().then((chat) => {
+                  this.set('cargando', false);
                   this.transitionToRoute('sesion.chat.interfaz-chat', chat.get('id'));
                 });
               })
@@ -159,6 +166,7 @@ export default Controller.extend({
         },
 
         responder(respuesta, solicitud) {
+          this.set('cargando', true);
           if(respuesta) {
             this.get('store').findRecord('usuario', this.get('sesion').get('uid')).then(usuario => {
               solicitud.get('chat').then(chatSolicitud =>  {
@@ -166,6 +174,7 @@ export default Controller.extend({
                 chatSolicitud.set('estado', 'conversacion');
                 chatSolicitud.save().then(() => {
                   solicitud.destroyRecord().then(() => {
+                    this.set('cargando', false);
                     this.transitionToRoute('sesion.chat.interfaz-chat', chatSolicitud.get('id'));
                   });
                 });
@@ -173,8 +182,11 @@ export default Controller.extend({
             });
           } else {
             solicitud.get('chat').then(chatSolicitud => {
+              chatSolicitud.set('estado', 'rechazado')
               chatSolicitud.save().then(() => {
-                solicitud.destroyRecord();
+                solicitud.destroyRecord().then(() => {
+                  this.set('cargando', false);
+                });
               });
             })
           }

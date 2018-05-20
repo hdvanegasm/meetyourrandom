@@ -4,6 +4,7 @@ import { filter } from 'rsvp';
 
 export default Controller.extend({
   sesion: service('session'),
+  cargando: false,
   actions: {
     enviar() {
       let mensaje = this.get('contenidoMensaje');
@@ -42,7 +43,7 @@ export default Controller.extend({
             this.get('model').get('usuarios').then((usuariosChat) => {
               usuariosChat.forEach((usuarioChat) => {
                 if(usuarioChat.get('id') != this.get('sesion').get('uid')) {
-                  
+
                   // En este momento tengo al otro usuario para agregarlo a mis favoritos
                   usuarioActual.get('listaFavoritos').then((listaFavoritosUsuarioActual) => {
                     listaFavoritosUsuarioActual.get('usuarios').pushObject(usuarioChat);

@@ -53,7 +53,7 @@
     <ul>
       {{#each model.solicitudes as |solicitud|}}
         <li>
-          <strong>De: </strong>{{solicitud.emisor.email}} - <strong>Fecha: </strong>{{solicitud.fecha}}
+          <strong>De: </strong>{{solicitud.emisor.email}} - <strong>Fecha: </strong>{{date-format solicitud.fecha "DD/MM/YYYY - HH:MM"}}
           <button {{action 'responder' true solicitud}}>Aceptar</button>
           <button {{action 'responder' false solicitud}}>Rechazar</button>
         </li>
