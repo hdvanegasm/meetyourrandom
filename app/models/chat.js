@@ -15,5 +15,8 @@ export default DS.Model.extend({
     mensajes: DS.hasMany('mensaje'),
     usuarios: DS.hasMany('usuario'),
 
+    // Este atributo no pertenece directamente al dominio, se pone aca con el
+    // objetivo de optimizar el emparejamiento en el chat cuando se realiza
+    // por medio de una solicitud. Es un atributo puramente tecnico
     favoritos: DS.hasMany('usuario')
 });
