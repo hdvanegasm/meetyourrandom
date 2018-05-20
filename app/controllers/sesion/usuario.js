@@ -127,7 +127,8 @@ export default Controller.extend({
           listaUsuariosFavoritos.then(listaUsuarios => {
             listaUsuarios.get('usuarios').removeObject(usuarioEliminar);
             listaUsuarios.save().then(() => {
-              window.alert('Usuario favorito eliminado');
+              document.getElementById('alerta').innerHTML = 'Usuario favorito eliminado';
+              document.getElementById('clickMe').click();
             })
           });
         },
