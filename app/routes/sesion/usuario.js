@@ -5,4 +5,7 @@ export default Route.extend({
   beforeModel: function() {
     return this.get('session').fetch().catch(function() {});
   },
+  model() {
+    return this.get('store').findRecord('usuario', this.get('session').get('uid'));
+  }
 });

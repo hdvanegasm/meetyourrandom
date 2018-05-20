@@ -7,6 +7,5 @@ export default DS.Model.extend({
 
     // Relaciones
     emisor: DS.belongsTo('usuario'),
-    receptor: DS.belongsTo('usuario'),
     chat: DS.belongsTo('chat')
 });

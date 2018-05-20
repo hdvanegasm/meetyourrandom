@@ -1,0 +1,22 @@
+<h1>Interfaz de chat</h1>
+<ul>
+  {{#each model.mensajes as |mensaje|}}
+  <li>({{mensaje.emisor.email}} - {{date-format mensaje.fecha "DD/MM/YYYY - HH:MM"}}) {{mensaje.contenido}}</li>
+  {{/each}}
+</ul>
+{{#if (estado-chat model.estado 'conversacion')}}
+  {{input name='contenidoMensaje' value=contenidoMensaje type='text' placeholder='Escriba su mensaje aquí'}}
+  <button name='enviarMensaje' {{action 'enviar'}}>Enviar Mensaje</button>
+  <button name='cerrarChat' {{action 'cerrar'}}>Cerrar chat</button>
+  <button name='agregarFavoritos' {{action 'agregar'}}>Agregar a favoritos</button>
+{{else if (estado-chat model.estado 'iniciado')}}
+  <p>No ha ingresado ningún usuario</p>
+  <button {{action 'cerrar'}}>Volver</button>
+{{else if (estado-chat model.estado 'rechazado')}}
+  <p>El otro usuario rechazó la solicitud de conexión</p>
+  <button {{action 'cerrar'}}>Volver</button>
+{{else}}
+  <p>El otro usuario ha abandonado el chat</p>
+  <button {{action 'cerrar'}}>Volver</button>
+{{/if}}
+{{outlet}}
