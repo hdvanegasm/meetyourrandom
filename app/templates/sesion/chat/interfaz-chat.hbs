@@ -11,12 +11,23 @@
   <button name='agregarFavoritos' {{action 'agregar'}}>Agregar a favoritos</button>
 {{else if (estado-chat model.estado 'iniciado')}}
   <p>No ha ingresado ningún usuario</p>
-  <button {{action 'cerrar'}}>Volver</button>
+  <button {{action 'cerrar'}}>Cerrar Chat</button>
 {{else if (estado-chat model.estado 'rechazado')}}
   <p>El otro usuario rechazó la solicitud de conexión</p>
-  <button {{action 'cerrar'}}>Volver</button>
+  <button {{action 'cerrar'}}>Cerrar Chat</button>
 {{else}}
   <p>El otro usuario ha abandonado el chat</p>
-  <button {{action 'cerrar'}}>Volver</button>
+  <button {{action 'cerrar'}}>Cerrar Chat</button>
 {{/if}}
 {{outlet}}
+
+<div id="popup1" class="overlay">
+    <div class="popup">
+        <div>
+            <strong>Mensaje:</strong>
+            <p id='alerta'></p>
+        </div>
+        <a href="#">&times; Aceptar</a>
+    </div>
+</div>
+<a hidden id='clickMe' href="#popup1">Click Me</a>
