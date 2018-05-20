@@ -92,7 +92,8 @@ export default Controller.extend({
                     usuarioChat.get("genero") == usuario.get("generoPreferido") &&
                     minEdadUsuario <= edadUsuarioChat &&
                     edadUsuarioChat <= maxEdadUsuario &&
-                    usuario.get("genero") == usuarioChat.get("generoPreferido")
+                    usuario.get("genero") == usuarioChat.get("generoPreferido") &&
+                    usuario.get("email") != usuarioChat.get("email")
                   ) {
                     return chat;
                   } else {

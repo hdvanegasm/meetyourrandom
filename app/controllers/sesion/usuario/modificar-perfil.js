@@ -49,7 +49,6 @@ export default Controller.extend({
                         alerta.innerHTML = 'Perfil actualizado';
                         clickMe.click();
                         self.set('cargando', false);
-                        self.transitionToRoute('sesion.usuario');
                     }).catch(function () {
                         self.set('cargando', false);
                         alerta.innerHTML = 'Ha ocurrido un error, no se pudo actualizar la información';
