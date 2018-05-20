@@ -5,14 +5,15 @@ import { filter } from 'rsvp';
 export default Controller.extend({
   cargando: false,
   sesion: service("session"),
+
   crearChat(usuario) {
     let newChat = this.get("store").createRecord("chat", {
       estado: "iniciado"
     });
     newChat.get("usuarios").pushObject(usuario);
     return newChat;
-
   },
+
   actions: {
     cerrarSesion() {
       this.set("cargando", true);
@@ -133,7 +134,6 @@ export default Controller.extend({
         },
 
         enviar(usuarioDestino) {
-
           let nuevaSolicitud = this.get('store').createRecord('solicitud-conexion', {
             fecha: new Date(),
             estado: false // Sin responder
@@ -143,16 +143,41 @@ export default Controller.extend({
           this.get('store').findRecord('usuario', this.get('sesion').get('uid')).then(usuarioEmisor => {
             nuevaSolicitud.set('emisor', usuarioEmisor);
             nuevaSolicitud.set('receptor', usuarioDestino);
-            
+
             usuarioDestino.get('solicitudes').pushObject(nuevaSolicitud);
+            let chatNuevo = this.crearChat(usuarioEmisor);
+            nuevaSolicitud.set('chat', chatNuevo);
             usuarioDestino.save().then(() => {
               nuevaSolicitud.save().then(() => {
-                // TODO redirigir al usuario actual a un nuevo chat
-                console.log('Solicitud de amistad enviada');
+                chatNuevo.save().then((chat) => {
+                  this.transitionToRoute('sesion.chat.interfaz-chat', chat.get('id'));
+                });
               })
             });
 
           })
+        },
+
+        responder(respuesta, solicitud) {
+          if(respuesta) {
+            this.get('store').findRecord('usuario', this.get('sesion').get('uid')).then(usuario => {
+              solicitud.get('chat').then(chatSolicitud =>  {
+                chatSolicitud.get('usuarios').pushObject(usuario);
+                chatSolicitud.set('estado', 'conversacion');
+                chatSolicitud.save().then(() => {
+                  solicitud.destroyRecord().then(() => {
+                    this.transitionToRoute('sesion.chat.interfaz-chat', chatSolicitud.get('id'));
+                  });
+                });
+              });
+            });
+          } else {
+            solicitud.get('chat').then(chatSolicitud => {
+              chatSolicitud.save().then(() => {
+                solicitud.destroyRecord();
+              });
+            })
+          }
         }
-      }
+      },
     });

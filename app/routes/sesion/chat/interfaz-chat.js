@@ -7,6 +7,6 @@ export default Route.extend({
       return this.get('session').fetch().catch(function() {});
     },
     model({ id_chat }) {
-        return this.get('store').findRecord('chat', id_chat);
+      return this.get('store').findRecord('chat', id_chat);
     }
 });

@@ -32,15 +32,36 @@
 
 <div class="lista-favoritos">
   <h2>Usuarios favoritos</h2>
-  <ul>
-    {{#each model.listaFavoritos.usuarios as |usuarioFavorito|}}
-      <li>
-        {{usuarioFavorito.email}}
-        <button {{action 'eliminar' model.listaFavoritos usuarioFavorito}}>Eliminar</button>
-        <button {{action 'enviar' usuarioFavorito}}>Solicitar Conexion</button>
-      </li>
-    {{/each}}
-  </ul>
+  {{#if model.listaFavoritos.usuarios}}
+    <ul>
+      {{#each model.listaFavoritos.usuarios as |usuarioFavorito|}}
+        <li>
+          {{usuarioFavorito.email}}
+          <button {{action 'eliminar' model.listaFavoritos usuarioFavorito}}>Eliminar</button>
+          <button {{action 'enviar' usuarioFavorito}}>Solicitar Conexion</button>
+        </li>
+      {{/each}}
+    </ul>
+  {{else}}
+    No hay usuarios favoritos
+  {{/if}}
+</div>
+
+<div class="solicitudes-conexion">
+  <h2>Solicitudes de Conexion</h2>
+  {{#if model.solicitudes}}
+    <ul>
+      {{#each model.solicitudes as |solicitud|}}
+        <li>
+          <strong>De: </strong>{{solicitud.emisor.email}} - <strong>Fecha: </strong>{{solicitud.fecha}}
+          <button {{action 'responder' true solicitud}}>Aceptar</button>
+          <button {{action 'responder' false solicitud}}>Rechazar</button>
+        </li>
+      {{/each}}
+    </ul>
+  {{else}}
+    <p>No hay solicitudes de conexión</p>
+  {{/if}}
 </div>
 
 <div class="row justify-content-md-center pt-5">

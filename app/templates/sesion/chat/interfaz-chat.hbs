@@ -1,4 +1,4 @@
-<h1>Entro al chat</h1>
+<h1>Interfaz de chat</h1>
 {{model.estado}}
 <ul>
     {{#each model.mensajes as |mensaje|}}
@@ -12,6 +12,9 @@
     <button name='agregarFavoritos' {{action 'agregar'}}>Agregar a favoritos</button>
 {{else if (estado-chat model.estado 'iniciado')}}
     <p>No ha ingresado ningún usuario</p>
+    <button {{action 'cerrar'}}>Volver</button>
+{{else if (estado-chat model.estado 'rechazado')}}
+    <p>El otro usuario rechazón la solicitud de conexión</p>
     <button {{action 'cerrar'}}>Volver</button>
 {{else}}
     <p>El otro usuario ha abandonado el chat</p>
