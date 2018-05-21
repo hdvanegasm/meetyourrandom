@@ -1,33 +1,133 @@
-<h1>Interfaz de chat</h1>
-<ul>
-  {{#each model.mensajes as |mensaje|}}
-  <li>({{mensaje.emisor.email}} - {{date-format mensaje.fecha "DD/MM/YYYY - HH:MM"}}) {{mensaje.contenido}}</li>
-  {{/each}}
-</ul>
 {{#if (estado-chat model.estado 'conversacion')}}
-  {{input name='contenidoMensaje' value=contenidoMensaje type='text' placeholder='Escriba su mensaje aquí'}}
-  <button name='enviarMensaje' {{action 'enviar'}}>Enviar Mensaje</button>
-  <button name='cerrarChat' {{action 'cerrar'}}>Cerrar chat</button>
-  <button name='agregarFavoritos' {{action 'agregar'}}>Agregar a favoritos</button>
+
+<link rel="import" href="/properties.html">
+
+<div class="container">
+  <div class="row justify-content-center pt-5">
+    <h1>Chat</h1>
+  </div>
+  <div class="row justify-content-center pt-5">
+    <div class="col-sm-8">
+      <div class="panel panel-white border-top-green">
+        <div class="panel-body chat">
+          <div class="row chat-wrapper">
+            <div class="col-md-12">
+
+              <div>
+                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 452px;">
+                  <div class="message-list-wrapper myBox" style="width: auto; height: 452px;">
+
+                    <ul class="message-list">
+                      {{#each model.mensajes as |mensaje|}}
+                      <li class={{posicion-usuario session.currentUser.email mensaje.emisor.email}}>
+                        <small class="timestamp">
+                          <i class="far fa-clock"></i>{{date-format mensaje.fecha "DD/MM/YYYY - HH:mm"}} - {{mensaje.emisor.email}}
+                        </small>
+                        <span class="avatar available tooltips" data-toggle="tooltip " data-placement={{posicion-usuario session.currentUser.email
+                          mensaje.emisor.email}} data-original-title="Yanique Robinson">
+                          <img src={{mensaje.emisor.fotoDePerfil}} alt="avatar" class="img-circle">
+                        </span>
+                        <div class="body">
+                          <div class="message well well-sm">
+                            {{mensaje.contenido}}
+                          </div>
+                        </div>
+                      </li>
+                      {{/each}}
+                    </ul>
+
+                  </div>
+                  <div class="slimScrollBar" style="width: 7px; position: absolute; top: 265px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 187.092px; background: rgb(0, 0, 0);"></div>
+                  <div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div>
+                </div>
+
+                <div class="compose-box">
+                  <div class="row">
+                    <div class="col-xs-12 mg-btm-10">
+                      {{input name='contenidoMensaje' id="btn-input" value=contenidoMensaje placeholder='Escriba su mensaje aquí' type='textarea'
+                      class="form-control input-sm" }}
+                    </div>
+                    <div class="col-xs-12">
+                      <button name='enviarMensaje' {{action 'enviar'}} class="btn btn btn-success pull-right">
+                        <i class="fa fa-location-arrow"></i> Enviar Mensaje
+                      </button>
+                      <button class="btn btn-danger" name='cerrarChat' {{action 'cerrar'}}>Cerrar chat</button>
+                      <button class="btn btn-primary" name='agregarFavoritos' {{action 'agregar'}}>
+                        {{#if model.favoritoSeleccionado}}
+                        <i class="fas fa-heart"></i>
+                        {{else}}
+                        <i class="far fa-heart"></i>
+                        {{/if}} Agregar a favoritos</button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 {{else if (estado-chat model.estado 'iniciado')}}
-  <p>No ha ingresado ningún usuario</p>
-  <button {{action 'cerrar'}}>Cerrar Chat</button>
+
+<div class="container">
+  <div class="opacityReduce">
+    <div class="row justify-content-center pt-5">
+      <img src="/chat1.png">
+    </div>
+    <div class="row justify-content-center pt-5">
+      <h1>No ha ingresado ningún usuario</h1>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <button class="btn btn-danger" {{action 'cerrar'}}>Cerrar Chat</button>
+  </div>
+</div>
+
 {{else if (estado-chat model.estado 'rechazado')}}
-  <p>El otro usuario rechazó la solicitud de conexión</p>
-  <button {{action 'cerrar'}}>Cerrar Chat</button>
+<div class="container">
+  <div class="opacityReduce">
+    <div class="row justify-content-center pt-5">
+      <img src="/chat3.png">
+    </div>
+    <div class="row justify-content-center pt-5">
+      <h1>El otro usuario rechazó la solicitud de conexión</h1>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <button class="btn btn-danger" {{action 'cerrar'}}>Cerrar Chat</button>
+  </div>
+</div>
 {{else}}
-  <p>El otro usuario ha abandonado el chat</p>
-  <button {{action 'cerrar'}}>Cerrar Chat</button>
-{{/if}}
-{{outlet}}
+<div class="container">
+  <div class="opacityReduce">
+    <div class="row justify-content-center pt-5">
+      <img src="/chat2.png">
+    </div>
+    <div class="row justify-content-center">
+      <h1>El otro usuario ha abandonado el chat</h1>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <button class="btn btn-danger" {{action 'cerrar'}}>Cerrar Chat</button>
+  </div>
+</div>
+{{/if}} {{outlet}}
 
 <div id="popup1" class="overlay">
-    <div class="popup">
-        <div>
-            <strong>Mensaje:</strong>
-            <p id='alerta'></p>
-        </div>
-        <a href="#">&times; Aceptar</a>
+  <div class="popup">
+    <div>
+      <strong>Mensaje:</strong>
+      <p id='alerta'></p>
     </div>
+    <a href="#">&times; Aceptar</a>
+  </div>
 </div>
+
 <a hidden id='clickMe' href="#popup1">Click Me</a>

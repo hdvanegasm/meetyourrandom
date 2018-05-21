@@ -34,7 +34,7 @@ export default Controller.extend({
                 .catch(() => {
                   document.getElementById("alerta").innerHTML =
                     "El mensaje no pudo ser enviado por problemas de conexión";
-                    document.getElementById('clickMe').click();
+                  document.getElementById("clickMe").click();
                 });
             });
         });
@@ -49,9 +49,11 @@ export default Controller.extend({
             "sesion.usuario",
             this.get("sesion").get("uid")
           );
-        }).catch(()=>{
-          document.getElementById('alerta').innerHTML = 'Se ha perdido la conexión con el servidor';
-          document.getElementById('clickMe').click();
+        })
+        .catch(() => {
+          document.getElementById("alerta").innerHTML =
+            "Se ha perdido la conexión con el servidor";
+          document.getElementById("clickMe").click();
         });
     },
 
@@ -65,6 +67,7 @@ export default Controller.extend({
           this.get("model")
             .save()
             .then(chat => {
+              this.set("favoritoSeleccionado", true);
               if (chat.get("favoritos").get("length") == 2) {
                 this.get("model")
                   .get("usuarios")
@@ -95,9 +98,11 @@ export default Controller.extend({
                     });
                   });
               }
-            }).catch(() => {
-              document.getElementById('alerta').innerHTML = 'Se ha perdido la conexión con el servidor';
-              document.getElementById('clickMe').click();
+            })
+            .catch(() => {
+              document.getElementById("alerta").innerHTML =
+                "Se ha perdido la conexión con el servidor";
+              document.getElementById("clickMe").click();
             });
         });
     }

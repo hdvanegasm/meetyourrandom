@@ -1,8 +1,5 @@
- {{#if cargando}} {{cargando-componente}} {{else}}
-
-{{cabecera-sesion login=true registro=false modificar=true cerrar=true}}
-
-{{outlet}} 
+ {{#if cargando}} {{cargando-componente}} {{else}} {{cabecera-sesion login=true registro=false modificar=true cerrar=true}}
+{{outlet}}
 <div class="container">
 
     <div class="row justify-content-center pt-5">
@@ -21,7 +18,9 @@
                                 <strong>{{model.nombre}}</strong>
                             </div>
                             <div class="row">
-                                <span><em>{{model.biografia}}</em></span>
+                                <span>
+                                    <em>{{model.biografia}}</em>
+                                </span>
                             </div>
                             <div class="row align-items-center justify-content-center">
                                 <span class="badge badge-info badge-pill">
@@ -118,7 +117,10 @@
         </div>
         <div class="col-6">
             <div class="row justify-content-md-center pt-5">
-                <img src="/random2.png" {{action 'buscar'}}>
+                <div class="emparejar">
+                    <img src="/random2.png" {{action 'buscar'}}>
+                </div>
+
             </div>
         </div>
     </div>
