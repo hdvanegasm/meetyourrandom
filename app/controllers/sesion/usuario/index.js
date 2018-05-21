@@ -179,6 +179,9 @@ export default Controller.extend({
                   });
                 });
               });
+            }).catch(() => {
+              document.getElementById('alerta').innerHTML = 'Se ha perdido la conexión con el servidor';
+              document.getElementById('clickMe').click();
             });
           } else {
             solicitud.get('chat').then(chatSolicitud => {
@@ -188,6 +191,9 @@ export default Controller.extend({
                   this.set('cargando', false);
                 });
               });
+            }).catch(() => {
+              document.getElementById('alerta').innerHTML = 'Se ha perdido la conexión con el servidor';
+              document.getElementById('clickMe').click();
             })
           }
         }
