@@ -169,7 +169,9 @@ export default Controller.extend({
             this.get('store').findRecord('usuario', this.get('sesion').get('uid')).then(usuario => {
               solicitud.get('chat').then(chatSolicitud =>  {
                 chatSolicitud.get('usuarios').pushObject(usuario);
-                chatSolicitud.set('estado', 'conversacion');
+                if(chatSolicitud.get('estado') != 'finalizado') {
+                  chatSolicitud.set('estado', 'conversacion');
+                }
                 chatSolicitud.save().then(() => {
                   solicitud.destroyRecord().then(() => {
                     this.set('cargando', false);
