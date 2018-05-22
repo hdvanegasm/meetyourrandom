@@ -67,7 +67,7 @@ export default Controller.extend({
           this.get("model")
             .save()
             .then(chat => {
-              this.set("favoritoSeleccionado", true);
+              this.get('model').set("favoritoSeleccionado", true);
               if (chat.get("favoritos").get("length") == 2) {
                 this.get("model")
                   .get("usuarios")
