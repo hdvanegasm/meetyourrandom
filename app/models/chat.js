@@ -16,7 +16,7 @@ export default DS.Model.extend({
     usuarios: DS.hasMany('usuario'),
 
     // Este atributo no pertenece directamente al dominio, se pone aca con el
-    // objetivo de optimizar el emparejamiento en el chat cuando se realiza
-    // por medio de una solicitud. Es un atributo puramente tecnico
+    // objetivo de notificar al Firebase que un usuario dió clic en el boton
+    // agregar al favoritos. Es un atributo puramente tecnico.
     favoritos: DS.hasMany('usuario')
 });
