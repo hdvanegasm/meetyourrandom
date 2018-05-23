@@ -30,13 +30,12 @@ export default Controller.extend({
                 .save()
                 .then(() => {
                   this.set("contenidoMensaje", "");
-                })
-                .catch(() => {
-                  document.getElementById("alerta").innerHTML =
-                    "El mensaje no pudo ser enviado por problemas de conexión";
-                  document.getElementById("clickMe").click();
                 });
             });
+        }).catch(() => {
+          document.getElementById("alerta").innerHTML =
+            "El mensaje no pudo ser enviado por problemas de conexión";
+          document.getElementById("clickMe").click();
         });
     },
 
