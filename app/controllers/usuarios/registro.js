@@ -44,7 +44,7 @@ export default Controller.extend({
         clickMe.click();
       } else if (fechaNacimiento >= hoy) {
         // Fecha de Nacimiento mayor a la actual
-        alerta.innerHTML = 'Por favor ingrese una fecha previa a la del dia de hoy';
+        alerta.innerHTML = 'Por favor ingrese una fecha previa a la del día de hoy';
         clickMe.click();
       } else {
         firebase.auth().createUserWithEmailAndPassword(email, contraseña).then((user) => {

@@ -1,5 +1,4 @@
-{{#if cargando}} {{cargando-componente}} {{else}}
-{{cabecera-sesion login=false registro=true modificar=false cerrar=false}}
+{{#if cargando}} {{cargando-componente}} {{else}} {{cabecera-sesion login=false registro=true modificar=false cerrar=false}}
 
 <div class="row justify-content-md-center pt-5">
     <div class="col col-lg-5">
@@ -33,13 +32,18 @@
 
 </div>
 {{/if}}
+
 <div id="popup1" class="overlay">
     <div class="popup">
-        <div>
-            <strong>Mensaje:</strong>
-            <p id='alerta'></p>
+        <div class="modal-header">
+            <h4 class="modal-title">Mensaje</h4>
         </div>
-        <a href="#">&times; Aceptar</a>
+        <div class="modal-body">
+            <p id="alerta" class="lead"></p>
+        </div>
+        <div class="modal-footer">
+            <a href="#" type="button" class="btn btn-primary">&times; Aceptar</a>
+        </div>
     </div>
 </div>
 <a hidden id='clickMe' href="#popup1">Click Me</a>

@@ -10,10 +10,10 @@ export default Controller.extend({
             let clickMe = document.getElementById('clickMe');
             let self = this;
             if (self.get('email') === undefined || self.get('email') === '') {
-                alerta.innerHTML = 'El campo de email esta vacío';
+                alerta.innerHTML = 'El campo de email está vacío';
                 clickMe.click();
             } else if (self.get('password') === undefined || self.get('password') === '') {
-                alerta.innerHTML = 'El campo contraseña esta vacío';
+                alerta.innerHTML = 'El campo contraseña está vacío';
                 clickMe.click();
             }
 
